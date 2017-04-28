@@ -25,4 +25,9 @@ public class SpecialtiesServiceImpl implements SpecialtiesService {
     public List<Specialties> findByIdOfFaculty(int idOfFaculty) {
         return specaltiesRepository.findByIdOfFaculty(idOfFaculty);
     }
+
+    @Override
+    public List<Specialties> findAll() {
+        return specaltiesRepository.findAll();
+    }
 }

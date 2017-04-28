@@ -139,6 +139,10 @@ public class ApiController {
     public List<Specialties> getSpecialties(@RequestParam("idFaculty") int idFaculty){
         return specialtiesService.findByIdOfFaculty(idFaculty);
     }
+    @RequestMapping(value = "/Specialties", method = RequestMethod.GET)
+    public List<Specialties> getSpecialties() {
+        return specialtiesService.findAll();
+    }
 
     @RequestMapping(value = "/Group", method = RequestMethod.GET, params = {"nameSpec", "semester"})
     public List<Group> getGroup(@RequestParam("nameSpec") String nameSpec, @RequestParam("semester") int sem) {
