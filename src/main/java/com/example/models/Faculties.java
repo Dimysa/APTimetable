@@ -1,7 +1,6 @@
 package com.example.models;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "faculties")
@@ -9,39 +8,39 @@ public class Faculties {
 
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
-  private long id;
+  private int id;
 
-  @NotNull
-  private String short_Name_Of_Faculty;
+  @Column(name = "short_name_of_faculty", nullable = false)
+  private String shortNameOfFaculty;
 
-  @NotNull
-  private String full_Name_Of_Faculty;
+  @Column(name = "full_name_of_faculty", nullable = false)
+  private String fullNameOfFaculty;
 
 
-  public long getId() {
+  public int getId() {
     return id;
   }
 
-  public void setId(long id) {
+  public void setId(int id) {
     this.id = id;
   }
 
 
-  public String getShort_Name_Of_Faculty() {
-    return short_Name_Of_Faculty;
+  public String getShortNameOfFaculty() {
+    return shortNameOfFaculty;
   }
 
-  public void setShort_Name_Of_Faculty(String short_Name_Of_Faculty) {
-    this.short_Name_Of_Faculty = short_Name_Of_Faculty;
+  public void setShortNameOfFaculty(String shortNameOfFaculty) {
+    this.shortNameOfFaculty = shortNameOfFaculty;
   }
 
 
-  public String getFull_Name_Of_Faculty() {
-    return full_Name_Of_Faculty;
+  public String getFullNameOfFaculty() {
+    return fullNameOfFaculty;
   }
 
-  public void setFull_Name_Of_Faculty(String full_Name_Of_Faculty) {
-    this.full_Name_Of_Faculty = full_Name_Of_Faculty;
+  public void setFullNameOfFaculty(String fullNameOfFaculty) {
+    this.fullNameOfFaculty = fullNameOfFaculty;
   }
 
   public Faculties() {
@@ -52,8 +51,8 @@ public class Faculties {
   public String toString() {
     return "Faculties{" +
             "id=" + id +
-            ", short_Name_Of_Faculty='" + short_Name_Of_Faculty + '\'' +
-            ", full_Name_Of_Faculty='" + full_Name_Of_Faculty + '\'' +
+            ", shortNameOfFaculty='" + shortNameOfFaculty + '\'' +
+            ", fullNameOfFaculty='" + fullNameOfFaculty + '\'' +
             '}';
   }
 }

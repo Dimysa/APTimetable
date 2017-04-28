@@ -27,25 +27,28 @@
 <div class="container">
     <div class="row starter-template">
         <div class="col-md-3 signin shadowbox" style="background-color: white">
-            <form class="form-group">
-
+            <div class="form-group">
                 <br/>
                 <label>Faculty</label>
                 <p><select class="form-control" id="selectFaculty">
                 </select></p>
-                <br/>
                 <label>Course</label>
-                <p><select class="form-control">
+                <p><select class="form-control" id="selectCourse">
                     <option value="1">1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
                     <option value="4">4</option>
                     <option value="5">5</option>
                 </select></p>
+                <label>Faculty</label>
+                <p><select class="form-control" id="selectSemestry">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                </select></p>
                 <br/>
-                <p><button class="btn btn-success" type="submit">Submit</button></p>
+                <p><button class="btn btn-success" type="submit" id="subButton">Submit</button></p>
                 <br/>
-            </form>
+            </div>
         </div>
         <div class="col-md-8" style="text-align: center">
             <div class="table-responsive">
@@ -56,7 +59,8 @@
 </div><!-- /.container -->
 
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="js/jquery-1.10.2.min.js"></script>
+<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script> -->
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <script src="js/bootstrap.min.js"></script>
 <script type="text/javascript">
@@ -72,10 +76,24 @@
             }
         });
     });
+    $("#subButton").click(function () {
+        let req = "faculty=" + $("#selectFaculty").val() + "\u0026course=" + $("#selectCourse").val()
+        + "\u0026semester=" + $("#selectSemestry").val();
+        $.ajax({
+            url: 'EditParams?' + req,
+            type: 'GET',
+            dataType: 'json',
+            success: function (data) {
+                sessionStorage.setItem("idFaculty", data.idFaculty);
+                sessionStorage.setItem("semester", data.semester);
+                document.location.href = "/edit";
+            }
+        });
+    });
     function fillSelectFaculty(data) {
         var strResult = "";
         $.each(data, function (index, faculty) {
-            strResult += "<option value=" + faculty.short_Name_Of_Faculty + ">" + faculty.short_Name_Of_Faculty + "</option>";
+            strResult += "<option value=" + faculty.shortNameOfFaculty + ">" + faculty.shortNameOfFaculty + "</option>";
         });
         console.log(strResult);
         $("#selectFaculty").html(strResult);
@@ -83,8 +101,8 @@
     function WriteTable(data) {
         var strResult = "<thead><tr><th>ID</th><th>Name</th><th>Full Name</th></tr></thead><tbody>";
         $.each(data, function (index, faculty) {
-            strResult += "<tr><td>" + faculty.id + "</td><td> " + faculty.short_Name_Of_Faculty + "</td><td>" +
-                faculty.full_Name_Of_Faculty + "</td>" + "</tr>";
+            strResult += "<tr><td>" + faculty.id + "</td><td> " + faculty.shortNameOfFaculty + "</td><td>" +
+                faculty.fullNameOfFaculty + "</td>" + "</tr>";
         });
         strResult += "</tbody>";
         $("#infoTable").html(strResult);

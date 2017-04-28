@@ -16,10 +16,21 @@ public class AcademicPlan {
   private String codeOfSpecialty;
   @Id
   @Column(name = "id_of_discipline", nullable = false)
-  private long idOfDiscipline;
+  private int idOfDiscipline;
   @Id @NotNull
-  private long semester;
+  private int semester;
 
+  @OneToOne
+  @JoinColumn(name = "code_of_specialty", updatable = false, insertable = false)
+  private Specialties specialties;
+
+  public Specialties getSpecialties() {
+    return specialties;
+  }
+
+  public void setSpecialties(Specialties specialties) {
+    this.specialties = specialties;
+  }
 
   public String getCodeOfSpecialty() {
     return codeOfSpecialty;
@@ -30,20 +41,20 @@ public class AcademicPlan {
   }
 
 
-  public long getIdOfDiscipline() {
+  public int getIdOfDiscipline() {
     return idOfDiscipline;
   }
 
-  public void setIdOfDiscipline(long idOfDiscipline) {
+  public void setIdOfDiscipline(int idOfDiscipline) {
     this.idOfDiscipline = idOfDiscipline;
   }
 
 
-  public long getSemester() {
+  public int getSemester() {
     return semester;
   }
 
-  public void setSemester(long semester) {
+  public void setSemester(int semester) {
     this.semester = semester;
   }
 

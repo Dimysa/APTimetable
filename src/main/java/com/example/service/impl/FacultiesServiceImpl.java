@@ -18,7 +18,7 @@ public class FacultiesServiceImpl implements FacultiesService {
     FacultiesRepository facultiesRepository;
 
     @Override
-    public List<Faculties> getAllFaculties() {
+    public List<Faculties> findAllFaculties() {
         Iterable<Faculties> temp = facultiesRepository.findAll();
         ArrayList<Faculties> list = new ArrayList<Faculties>();
         if(temp != null) {
@@ -27,5 +27,10 @@ public class FacultiesServiceImpl implements FacultiesService {
             }
         }
         return list;
+    }
+
+    @Override
+    public Faculties findByShortName(String shortName) {
+        return facultiesRepository.findByShortNameOfFaculty(shortName);
     }
 }

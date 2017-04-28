@@ -4,19 +4,15 @@
     <meta charset="UTF-8"/>
     <link href="css/bootstrap.min.css" rel="stylesheet"/>
     <link href="css/starter-template.css" rel="stylesheet"/>
-
+    <link href="_layout.html" rel="import"/>
     <title>Title</title>
 </head>
 <body>
-<header>
-    <nav class="navbar navbar-default navbar-fixed-top shadowbox">
-        <ul class="nav navbar-nav navbar-right">
-            <li>
-                <a href="#"><span class="glyphicon glyphicon-user"></span>Sing in</a>
-            </li>
-        </ul>
-    </nav>
-</header>
+<script type="text/javascript">
+    var link = document.querySelector('link[rel=import]').import;
+    var doc = link.querySelector('.head');
+    document.body.appendChild(doc.cloneNode(true));
+</script>
 <div class="container">
     <div class="row starter-template">
         <div class="col-md-8">
@@ -24,8 +20,8 @@
         </div>
         <div class="col-md-2">
             <form class="form-group">
-                <label for="date">Enter date: </label>
-                <input id="date" type="date" class="input-group"/>
+                <label for="day">Enter day: </label>
+                <input id="day" type="day" class="input-group"/>
                 <br/>
                 <label for="numberClass">Select number class</label>
                 <select id="numberClass" class="form-control">
@@ -46,19 +42,32 @@
                 <br/>
                 <label for="auditorium">Auditorium</label>
                 <select id="auditorium" class="form-control"></select>
-
+                <!-- if LK
+                <label for="stream">Stream</label>
+                <select id="stream" class="form-control"></select> -->
+                <!-- else -->
+                <label for="specialty">Specialty</label>
+                <select id="specialty" class="form-control"></select>
+                <label for="group">Group</label>
+                <select id="group" class="form-control"></select>
+                <label for="subgroup">Subgroup</label>
+                <select id="subgroup" class="form-control"></select>
+                <!-- end else -->
+                <button class="btn btn-success" type="submit" id="postTimetable">Save</button>
             </form>
         </div>
         <div class="col-md-2" id="groupInfo"></div>
     </div>
 </div>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script> -->
+<script src="js/jquery-1.10.2.min.js"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <script src="js/bootstrap.min.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
         $.ajax({
-            url: '/GetTypeOfLoad',
+            url: '/TypeOfLoad',
             async: false,
             timeout: 30000,
             type: 'GET',
@@ -67,9 +76,8 @@
                 fillTypeLoadSelect(data);
             }
         });
-        var request = "?idFac=" + 7 + "\u0026sem=" + 6;
         $.ajax({
-            url: '/GetDisciplines' + request,
+            url: '/Disciplines?' + "idFaculty=" + sessionStorage.getItem("idFaculty") + "\u0026semester=" + sessionStorage.getItem("semester"),
             type: 'GET',
             async: false,
             timeout: 15000,
@@ -84,7 +92,7 @@
         var body = $("#typeLoad").val();
         console.log(body);
         $.ajax({
-            url: '/GetAuditoriums?type=' + body,
+            url: '/Auditoriums?type=' + body,
             type: 'GET',
             dataType: 'json',
             success: function (msg) {
@@ -92,6 +100,79 @@
             }
         });
     });
+    $("#discipline").change(function () {
+        var req = "nameDiscipline=" + $("#discipline option:selected").text() + "\u0026semester=" + sessionStorage.getItem("semester");
+        if($("#typeLoad").val() == "ЛК") {
+            $.ajax({
+                url: 'Stream?' + req,
+                type: 'GET',
+                dataType: 'json',
+                success: function (data) {
+                    fillStream(data);
+                }
+            });
+        }
+        else {
+            $.ajax({
+                url: 'Specialties?' + req,
+                type: 'GET',
+                dataType: 'json',
+                success: function (data) {
+                    fillSpecialties(data);
+                }
+            });
+        }
+    });
+    $("#specialty").change(function () {
+        let req = "nameSpec="+$("#specialty option:selected").text() + "\u0026semester=" + sessionStorage.getItem("semester");
+        $.ajax({
+            url: 'Group?' + req,
+            type: 'GET',
+            dataType: 'json',
+            success: function (data) {
+                fillGroup(data);
+            }
+        });
+    });
+    $("#group").change(function () {
+        let req = "nameSpec="+$("#specialty option:selected").text() + "\u0026semester=" + sessionStorage.getItem("semester") + "\u0026group=" + $("#group").val();
+        $.ajax({
+            url: 'Subgroup?' + req,
+            type: 'GET',
+            dataType: 'json',
+            success: function (data) {
+                fillSubgroup(data);
+            }
+        });
+    });
+    function fillSubgroup(data) {
+        var strRes = "";
+        $.each(data, function (index, item) {
+            strRes += "<option value = " + item.subgroup + ">" + item.subgroup +  "</option>";
+        });
+        $("#subgroup").html(strRes);
+    }
+    function fillGroup(data) {
+        var strRes = "";
+        $.each(data, function (index, item) {
+            strRes += "<option value = " + item.group + ">" + item.group +  "</option>";
+        });
+        $("#group").html(strRes);
+    }
+    function fillSpecialties(data) {
+        var strRes = "";
+        $.each(data, function (index, item) {
+            strRes += "<option value = " + item.shortNameOfSpecialty + ">" + item.shortNameOfSpecialty +  "</option>";
+        });
+        $("#specialty").html(strRes);
+    }
+    function fillStream(data) {
+        var strRes = "";
+        $.each(data, function (index, stream) {
+            strRes += "<option value = " + stream.name + ">" + stream.name +  "</option>";
+        });
+        $("#stream").html(strRes);
+    }
     function fillTypeLoadSelect(data) {
         var strRes = "";
         $.each(data, function (index, typeLoad) {

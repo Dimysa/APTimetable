@@ -11,7 +11,7 @@ public class Auditoriums {
   @Id
   private String number;
   @NotNull
-  private long capacity;
+  private int capacity;
   @Column(name = "short_name_of_auditorium", nullable = false)
   private String shortNameOfAuditorium;
 
@@ -25,11 +25,11 @@ public class Auditoriums {
   }
 
 
-  public long getCapacity() {
+  public int getCapacity() {
     return capacity;
   }
 
-  public void setCapacity(long capacity) {
+  public void setCapacity(int capacity) {
     this.capacity = capacity;
   }
 

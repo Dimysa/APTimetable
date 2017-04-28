@@ -10,7 +10,8 @@ import java.util.List;
  * Created by supercat on 19.4.17.
  */
 public interface DisciplinesRepository extends JpaRepository<Disciplines, Long> {
-    List<Disciplines> findById(long id);
+    Disciplines findById(int id);
+    Disciplines findByNameOfDiscipline(String nameOfDiscipline);
 
     @Query(value = "SELECT * FROM getdisciplines(?1, ?2)", nativeQuery = true)
     List<Disciplines> callFindByIdOfFacAndSem(int idOfFaculty, int semester);

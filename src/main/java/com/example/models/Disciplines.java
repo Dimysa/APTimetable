@@ -1,24 +1,22 @@
 package com.example.models;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
+@Table(name = "disciplines")
 public class Disciplines {
 
   @Id @GeneratedValue
-  private long id;
+  private int id;
   @Column(name = "name_of_discipline", nullable = false)
   private String nameOfDiscipline;
 
 
-  public long getId() {
+  public int getId() {
     return id;
   }
 
-  public void setId(long id) {
+  public void setId(int id) {
     this.id = id;
   }
 

@@ -18,7 +18,12 @@ public class AcademicPlanServiceImpl implements AcademicPlanService {
     AcademicPlanRepository academicPlanRepository;
 
     @Override
-    public List<AcademicPlan> findByCodeSpecAndSem(String code, long sem) {
+    public List<AcademicPlan> findByCodeSpecAndSem(String code, int sem) {
         return academicPlanRepository.findByCodeOfSpecialtyAndSemester(code, sem);
+    }
+
+    @Override
+    public List<AcademicPlan> findByIdOfDisciplineAndSemester(int idOfDiscipline, int semestry) {
+        return academicPlanRepository.findByIdOfDisciplineAndSemester(idOfDiscipline, semestry);
     }
 }

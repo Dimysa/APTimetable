@@ -8,5 +8,6 @@ import java.util.List;
  * Created by supercat on 13.4.17.
  */
 public interface FacultiesService {
-    List<Faculties> getAllFaculties();
+    List<Faculties> findAllFaculties();
+    Faculties findByShortName(String shortName);
 }

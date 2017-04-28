@@ -19,7 +19,12 @@ public class DisciplinesServiceImpl implements DisciplinesService {
 
 
     @Override
-    public List<Disciplines> findById(long id) {
+    public Disciplines findByName(String name) {
+        return disciplinesRepository.findByNameOfDiscipline(name);
+    }
+
+    @Override
+    public Disciplines findById(int id) {
         return disciplinesRepository.findById(id);
     }
 

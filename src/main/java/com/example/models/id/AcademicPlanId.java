@@ -10,7 +10,7 @@ import java.io.Serializable;
  */
 public class AcademicPlanId implements Serializable {
     private String codeOfSpecialty;
-    private long idOfDiscipline;
-    private long semester;
+    private int idOfDiscipline;
+    private int semester;
 
 }

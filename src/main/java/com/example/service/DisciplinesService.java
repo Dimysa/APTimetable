@@ -9,6 +9,7 @@ import java.util.List;
  * Created by supercat on 19.4.17.
  */
 public interface DisciplinesService {
-    List<Disciplines> findById(long id);
+    Disciplines findByName(String name);
+    Disciplines findById(int id);
     List<Disciplines> findByIdOfFacAndSem(int idOfFac, int sem);
 }
