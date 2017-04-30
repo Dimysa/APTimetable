@@ -87,8 +87,12 @@ public class ApiController {
         return list;
     }
     @RequestMapping(value = "/Faculties", method = RequestMethod.POST)
-    public Faculties saveFaculties(@RequestBody Faculties faculties) {
-        return facultiesService.saveOrUpdate(faculties);
+    public ResponseEntity<Faculties> saveFaculties(@RequestBody Faculties faculties) {
+        Faculties fac = facultiesService.saveOrUpdate(faculties);
+        if(fac == null)
+            return new ResponseEntity<Faculties>(HttpStatus.BAD_REQUEST);
+        else
+            return new ResponseEntity<Faculties>(fac, HttpStatus.OK);
     }
     @RequestMapping(value = "/Faculties/{id}", method = RequestMethod.DELETE)
     public ResponseEntity deleteFaulty(@PathVariable Integer id) {

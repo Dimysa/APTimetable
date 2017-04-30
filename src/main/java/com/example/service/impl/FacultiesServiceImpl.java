@@ -4,6 +4,7 @@ import com.example.repository.FacultiesRepository;
 import com.example.models.Faculties;
 import com.example.service.FacultiesService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -37,8 +38,14 @@ public class FacultiesServiceImpl implements FacultiesService {
     @Override
     public Faculties saveOrUpdate(Faculties changeFaculty) {
         Faculties faculties = facultiesRepository.findOne(changeFaculty.getId());
-        if (faculties == null)
-            return null;
+        if (faculties == null) {
+            try {
+                return facultiesRepository.saveAndFlush(changeFaculty);
+            }
+            catch (Exception e) {
+                return null;
+            }
+        }
         else {
             faculties.update(changeFaculty);
             faculties = facultiesRepository.save(faculties);
