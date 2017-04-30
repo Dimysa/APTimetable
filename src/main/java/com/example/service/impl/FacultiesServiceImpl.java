@@ -45,4 +45,9 @@ public class FacultiesServiceImpl implements FacultiesService {
             return faculties;
         }
     }
+
+    @Override
+    public void delete(Integer id) {
+        facultiesRepository.delete(id);
+    }
 }

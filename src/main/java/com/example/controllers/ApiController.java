@@ -4,6 +4,7 @@ import com.example.models.*;
 import com.example.repository.TimetableRepository;
 import com.example.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -88,6 +89,11 @@ public class ApiController {
     @RequestMapping(value = "/Faculties", method = RequestMethod.POST)
     public Faculties saveFaculties(@RequestBody Faculties faculties) {
         return facultiesService.saveOrUpdate(faculties);
+    }
+    @RequestMapping(value = "/Faculties/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity deleteFaulty(@PathVariable Integer id) {
+        facultiesService.delete(id);
+        return new ResponseEntity(HttpStatus.OK);
     }
 
     @RequestMapping("/TypeOfLoad")
