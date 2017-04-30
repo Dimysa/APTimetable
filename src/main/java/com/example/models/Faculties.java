@@ -16,6 +16,11 @@ public class Faculties {
   @Column(name = "full_name_of_faculty", nullable = false)
   private String fullNameOfFaculty;
 
+  public void update(Faculties faculties) {
+    this.id = faculties.getId();
+    this.shortNameOfFaculty = faculties.getShortNameOfFaculty();
+    this.fullNameOfFaculty = faculties.getFullNameOfFaculty();
+  }
 
   public int getId() {
     return id;
@@ -25,7 +30,6 @@ public class Faculties {
     this.id = id;
   }
 
-
   public String getShortNameOfFaculty() {
     return shortNameOfFaculty;
   }
@@ -33,7 +37,6 @@ public class Faculties {
   public void setShortNameOfFaculty(String shortNameOfFaculty) {
     this.shortNameOfFaculty = shortNameOfFaculty;
   }
-
 
   public String getFullNameOfFaculty() {
     return fullNameOfFaculty;

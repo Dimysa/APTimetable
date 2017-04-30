@@ -33,4 +33,16 @@ public class FacultiesServiceImpl implements FacultiesService {
     public Faculties findByShortName(String shortName) {
         return facultiesRepository.findByShortNameOfFaculty(shortName);
     }
+
+    @Override
+    public Faculties saveOrUpdate(Faculties changeFaculty) {
+        Faculties faculties = facultiesRepository.findOne(changeFaculty.getId());
+        if (faculties == null)
+            return null;
+        else {
+            faculties.update(changeFaculty);
+            faculties = facultiesRepository.save(faculties);
+            return faculties;
+        }
+    }
 }

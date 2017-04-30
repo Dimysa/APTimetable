@@ -80,12 +80,14 @@ public class ApiController {
         return result.toString();
     }
 
-    @RequestMapping("/Faculties")
+    @RequestMapping(value = "/Faculties", method = RequestMethod.GET)
     public List<Faculties> getFaculties() {
         List<Faculties> list = facultiesService.findAllFaculties();
-//        list.add(new Faculties(1, "FIT", "Test Name"));
-//        list.add(new Faculties(2, "PIM", "Name"));
         return list;
+    }
+    @RequestMapping(value = "/Faculties", method = RequestMethod.POST)
+    public Faculties saveFaculties(@RequestBody Faculties faculties) {
+        return facultiesService.saveOrUpdate(faculties);
     }
 
     @RequestMapping("/TypeOfLoad")

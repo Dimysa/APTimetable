@@ -10,4 +10,5 @@ import java.util.List;
 public interface FacultiesService {
     List<Faculties> findAllFaculties();
     Faculties findByShortName(String shortName);
+    Faculties saveOrUpdate(Faculties faculties);
 }
