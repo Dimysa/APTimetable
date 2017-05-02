@@ -43,6 +43,7 @@ public class FacultiesServiceImpl implements FacultiesService {
                 return facultiesRepository.saveAndFlush(changeFaculty);
             }
             catch (Exception e) {
+                e.printStackTrace();
                 return null;
             }
         }

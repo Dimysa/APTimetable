@@ -1,5 +1,7 @@
 package com.example.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 
 @Entity
@@ -26,6 +28,7 @@ public class Substream {
 
   @ManyToOne
   @JoinColumn(name = "id", insertable = false, updatable = false)
+  @JsonBackReference
   private Stream stream;
 
   public Stream getStream() {

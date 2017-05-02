@@ -1,6 +1,9 @@
 package com.example.models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
+import java.util.Collection;
 
 @Entity
 @Table(name = "stream")
@@ -8,17 +11,29 @@ public class Stream {
 
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
-  private int id;
+  private Long id;
 
   private String name;
 
-  private int semester;
+  private Long semester;
 
-  public int getId() {
+  @OneToMany(mappedBy = "stream", fetch = FetchType.EAGER)
+  @JsonManagedReference
+  private Collection<Substream> substreams;
+
+  public Collection<Substream> getSubstreams() {
+    return substreams;
+  }
+
+  public void setSubstreams(Collection<Substream> substreams) {
+    this.substreams = substreams;
+  }
+
+  public Long getId() {
     return id;
   }
 
-  public void setId(int id) {
+  public void setId(Long id) {
     this.id = id;
   }
 
@@ -30,11 +45,11 @@ public class Stream {
     this.name = name;
   }
 
-  public int getSemester() {
+  public Long getSemester() {
     return semester;
   }
 
-  public void setSemester(int semester) {
+  public void setSemester(Long semester) {
     this.semester = semester;
   }
 

@@ -2,12 +2,18 @@ package com.example.controllers;
 
 import com.example.models.*;
 import com.example.repository.TimetableRepository;
+import com.example.repository.ViewTimetableRepository;
 import com.example.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.management.Query;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import javax.swing.text.View;
 import java.io.Serializable;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -58,7 +64,9 @@ public class ApiController {
     @Autowired
     TeachersService teachersService;
     @Autowired
-    TimetableRepository timetableRepository;
+    TimetableService timetableService;
+    @Autowired
+    ViewTimetableRepository viewTimetableRepository;
 
     @RequestMapping("/ApiInfo")
     public ResponseEntity<String> Get() {
@@ -174,8 +182,15 @@ public class ApiController {
     }
 
     @RequestMapping(value = "/Timetable", method = RequestMethod.POST)
-    public void timetable(@RequestBody Timetable timetable) {
+    public ResponseEntity timetable(@RequestBody Timetable timetable) {
         System.out.println("TEST");
-        timetableRepository.save(timetable);
+        if(timetableService.save(timetable))
+            return new ResponseEntity(HttpStatus.OK);
+        else
+            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+    @RequestMapping(value = "/Timetable", method = RequestMethod.GET)
+    public ResponseEntity<List<ViewTimetable>> getTimetable() {
+        return ResponseEntity.ok(viewTimetableRepository.getView());
     }
 }

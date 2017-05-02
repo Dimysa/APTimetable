@@ -1,6 +1,7 @@
 package com.example.models;
 
 import com.example.models.id.SubgroupId;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
 import javax.persistence.Entity;
@@ -30,6 +31,7 @@ public class Subgroup {
           @JoinColumn(name = "group_num", nullable = false, insertable = false, updatable = false),
           @JoinColumn(name = "semester", nullable = false, insertable = false, updatable = false)
   })
+  @JsonBackReference
   private Group obj;
 
   public Group getObj() {

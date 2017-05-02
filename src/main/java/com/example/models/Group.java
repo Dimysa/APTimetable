@@ -1,8 +1,11 @@
 package com.example.models;
 
 import com.example.models.id.GroupId;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
+import java.util.Collection;
 
 @Entity
 @Table(name = "group_table")
@@ -20,7 +23,8 @@ public class Group {
   @Id
   private int semester;
 
-/*  @OneToMany(mappedBy = "obj")
+  @OneToMany(mappedBy = "obj", fetch = FetchType.EAGER)
+  @JsonManagedReference
   private Collection<Subgroup> subgroups;
 
 
@@ -30,7 +34,7 @@ public class Group {
 
   public void setSubgroups(Collection<Subgroup> subgroups) {
     this.subgroups = subgroups;
-  }*/
+  }
 
   public String getCodeOfSpecialty() {
     return codeOfSpecialty;

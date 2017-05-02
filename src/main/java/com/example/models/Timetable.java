@@ -1,67 +1,78 @@
 package com.example.models;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
+@Table(name = "timetable")
 public class Timetable {
 
   @Id
-  private int id;
-  
-  private String day;
+  @SequenceGenerator(name="timetable", sequenceName = "timetable_id_seq")
+  @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "timetable")
+  private Long id;
+
+  private java.sql.Date date;
   @Column(name = "id_class")
-  private int idClass;
+  private Long idClass;
   @Column(name = "number_of_week")
-  private int numberOfWeek;
+  private Long numberOfWeek;
   @Column(name = "number_of_auditorium")
   private String numberOfAuditorium;
   @Column(name = "id_of_discipline")
-  private int idOfDiscipline;
-  @Column(name = "type_of_load")
+  private Long idOfDiscipline;
+  @Column(name = "typeOfLoad")
   private String typeOfLoad;
   @Column(name = "id_of_stream")
-  private int idOfStream;
+  private Long idOfStream;
   @Column(name = "code_of_specialty")
   private String codeOfSpecialty;
   @Column(name = "group_num")
-  private int group;
-  @Column(name = "subgroup_num")
-  private int subgroup;
+  private Long groupNum;
+  private Long subgroup;
   @Column(name = "id_of_teacher")
-  private int idOfTeacher;
- 
-  public int getId() {
-      return id;
+  private Long idOfTeacher;
+
+  @OneToOne
+  @JoinColumn(name = "id_of_stream", updatable = false, insertable = false)
+  private Stream stream;
+
+  public Stream getStream() {
+    return stream;
   }
 
-  public void setId(int id) {
-      this.id = id;
+  public void setStream(Stream stream) {
+    this.stream = stream;
   }
 
-
-  public String getDay() {
-    return day;
+  public Long getId() {
+    return id;
   }
 
-  public void setDay(String day) {
-    this.day = day;
+  public void setId(Long id) {
+    this.id = id;
   }
 
-  public int getIdClass() {
+  public java.sql.Date getDate() {
+    return date;
+  }
+
+  public void setDate(java.sql.Date date) {
+    this.date = date;
+  }
+
+  public Long getIdClass() {
     return idClass;
   }
 
-  public void setIdClass(int idClass) {
+  public void setIdClass(Long idClass) {
     this.idClass = idClass;
   }
 
-  public int getNumberOfWeek() {
+  public Long getNumberOfWeek() {
     return numberOfWeek;
   }
 
-  public void setNumberOfWeek(int numberOfWeek) {
+  public void setNumberOfWeek(Long numberOfWeek) {
     this.numberOfWeek = numberOfWeek;
   }
 
@@ -73,11 +84,11 @@ public class Timetable {
     this.numberOfAuditorium = numberOfAuditorium;
   }
 
-  public int getIdOfDiscipline() {
+  public Long getIdOfDiscipline() {
     return idOfDiscipline;
   }
 
-  public void setIdOfDiscipline(int idOfDiscipline) {
+  public void setIdOfDiscipline(Long idOfDiscipline) {
     this.idOfDiscipline = idOfDiscipline;
   }
 
@@ -89,11 +100,11 @@ public class Timetable {
     this.typeOfLoad = typeOfLoad;
   }
 
-  public int getIdOfStream() {
+  public Long getIdOfStream() {
     return idOfStream;
   }
 
-  public void setIdOfStream(int idOfStream) {
+  public void setIdOfStream(Long idOfStream) {
     this.idOfStream = idOfStream;
   }
 
@@ -105,27 +116,27 @@ public class Timetable {
     this.codeOfSpecialty = codeOfSpecialty;
   }
 
-  public int getGroup() {
-    return group;
+  public Long getGroupNum() {
+    return groupNum;
   }
 
-  public void setGroup(int group) {
-    this.group = group;
+  public void setGroupNum(Long groupNum) {
+    this.groupNum = groupNum;
   }
 
-  public int getSubgroup() {
+  public Long getSubgroup() {
     return subgroup;
   }
 
-  public void setSubgroup(int subgroup) {
+  public void setSubgroup(Long subgroup) {
     this.subgroup = subgroup;
   }
 
-  public int getIdOfTeacher() {
+  public Long getIdOfTeacher() {
     return idOfTeacher;
   }
 
-  public void setIdOfTeacher(int idOfTeacher) {
+  public void setIdOfTeacher(Long idOfTeacher) {
     this.idOfTeacher = idOfTeacher;
   }
 }
