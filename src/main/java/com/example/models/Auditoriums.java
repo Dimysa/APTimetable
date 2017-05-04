@@ -9,7 +9,8 @@ import javax.validation.constraints.NotNull;
 public class Auditoriums {
 
   @Id
-  private String number;
+  @Column(name = "number_of_auditorium")
+  private String numberOfAuditorium;
   @NotNull
   private int capacity;
   @Column(name = "short_name_of_auditorium", nullable = false)
@@ -17,11 +18,11 @@ public class Auditoriums {
 
 
   public String getNumber() {
-    return number;
+    return numberOfAuditorium;
   }
 
-  public void setNumber(String number) {
-    this.number = number;
+  public void setNumber(String numberOfAuditorium) {
+    this.numberOfAuditorium = numberOfAuditorium;
   }
 
 
@@ -48,7 +49,7 @@ public class Auditoriums {
   @Override
   public String toString() {
     return "Auditoriums{" +
-            "number='" + number + '\'' +
+            "number='" + numberOfAuditorium + '\'' +
             ", capacity=" + capacity +
             ", shortNameOfAuditorium='" + shortNameOfAuditorium + '\'' +
             '}';

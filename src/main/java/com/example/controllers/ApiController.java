@@ -193,4 +193,9 @@ public class ApiController {
     public ResponseEntity<List<ViewTimetable>> getTimetable() {
         return ResponseEntity.ok(viewTimetableRepository.getView());
     }
+    @RequestMapping(value = "/Timetable", method = RequestMethod.GET, params = {"codeSpec", "semester"})
+    public ResponseEntity<List<ViewTimetable>>getTimetable(@RequestParam("codeSpec") String codeSpec, @RequestParam("semester") Integer sem) {
+        String fullNameSpec = specialtiesService.findOne(codeSpec).getFullNameOfSpecialty();
+        return ResponseEntity.ok(viewTimetableRepository.findByFullNameOfSpecialtyAndSemester(fullNameSpec, sem));
+    }
 }

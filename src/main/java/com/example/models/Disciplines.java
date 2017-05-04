@@ -6,7 +6,9 @@ import javax.persistence.*;
 @Table(name = "disciplines")
 public class Disciplines {
 
-  @Id @GeneratedValue
+  @Id
+  @SequenceGenerator(name="disc", sequenceName = "disciplines_id_seq")
+  @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "disc")
   private int id;
   @Column(name = "name_of_discipline", nullable = false)
   private String nameOfDiscipline;

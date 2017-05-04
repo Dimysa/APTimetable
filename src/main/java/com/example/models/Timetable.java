@@ -29,6 +29,7 @@ public class Timetable {
   @Column(name = "group_num")
   private Long groupNum;
   private Long subgroup;
+  private Long semester;
   @Column(name = "id_of_teacher")
   private Long idOfTeacher;
 
@@ -42,6 +43,14 @@ public class Timetable {
 
   public void setStream(Stream stream) {
     this.stream = stream;
+  }
+
+  public Long getSemester() {
+    return semester;
+  }
+
+  public void setSemester(Long semester) {
+    this.semester = semester;
   }
 
   public Long getId() {

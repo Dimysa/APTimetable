@@ -10,7 +10,8 @@ import java.util.Collection;
 public class Stream {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
+  @SequenceGenerator(name="str", sequenceName = "stream_id_seq")
+  @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "str")
   private Long id;
 
   private String name;

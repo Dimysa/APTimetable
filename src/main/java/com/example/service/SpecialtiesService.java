@@ -11,4 +11,5 @@ public interface SpecialtiesService {
     List<Specialties> findByShortName(String shortName);
     List<Specialties> findByIdOfFaculty(int idOfFaculty);
     List<Specialties> findAll();
+    Specialties findOne(String codeSpec);
 }

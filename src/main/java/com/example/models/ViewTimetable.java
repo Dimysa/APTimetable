@@ -19,17 +19,37 @@ public class ViewTimetable {
   }
 
   private java.sql.Date date;
-  private Integer id_class;
-  private Integer number_of_week;
-  private String number;
-  private String name_of_discipline;
-  private String full_name_of_load;
-  private String full_name_of_specialty;
-  private Integer group_num;
+  @Column(name = "time")
+  private String time;
+  @Column(name = "number_of_week")
+  private Integer numberOfWeek;
+  @Column(name = "number_of_auditorium")
+  private String numberOfAuditorium;
+  @Column(name = "name_of_discipline")
+  private String nameOfDiscipline;
+  @Column(name = "full_name_of_load")
+  private String fullNameOfLoad;
+  @Column(name = "full_name_of_specialty")
+  private String fullNameOfSpecialty;
+  @Column(name = "group_num")
+  private Integer groupNum;
+  @Column(name = "subgroup")
   private Integer subgroup;
-  private String last_name;
-  private String first_name;
-  private String middle_name;
+  private Integer semester;
+  @Column(name = "last_name")
+  private String lastName;
+  @Column(name = "first_name")
+  private String firstName;
+  @Column(name = "middle_name")
+  private String middleName;
+
+  public Integer getSemester() {
+    return semester;
+  }
+
+  public void setSemester(Integer semester) {
+    this.semester = semester;
+  }
 
   public java.sql.Date getDate() {
     return date;
@@ -39,60 +59,60 @@ public class ViewTimetable {
     this.date = date;
   }
 
-  public Integer getId_class() {
-    return id_class;
+  public String getTime() {
+    return time;
   }
 
-  public void setId_class(Integer id_class) {
-    this.id_class = id_class;
+  public void setTime(String time) {
+    this.time = time;
   }
 
-  public Integer getNumber_of_week() {
-    return number_of_week;
+  public Integer getNumberOfWeek() {
+    return numberOfWeek;
   }
 
-  public void setNumber_of_week(Integer number_of_week) {
-    this.number_of_week = number_of_week;
+  public void setNumberOfWeek(Integer numberOfWeek) {
+    this.numberOfWeek = numberOfWeek;
   }
 
-  public String getNumber() {
-    return number;
+  public String getNumberOfAuditorium() {
+    return numberOfAuditorium;
   }
 
-  public void setNumber(String number) {
-    this.number = number;
+  public void setNumberOfAuditorium(String numberOfAuditorium) {
+    this.numberOfAuditorium = numberOfAuditorium;
   }
 
-  public String getName_of_discipline() {
-    return name_of_discipline;
+  public String getNameOfDiscipline() {
+    return nameOfDiscipline;
   }
 
-  public void setName_of_discipline(String name_of_discipline) {
-    this.name_of_discipline = name_of_discipline;
+  public void setNameOfDiscipline(String nameOfDiscipline) {
+    this.nameOfDiscipline = nameOfDiscipline;
   }
 
-  public String getFull_name_of_load() {
-    return full_name_of_load;
+  public String getFullNameOfLoad() {
+    return fullNameOfLoad;
   }
 
-  public void setFull_name_of_load(String full_name_of_load) {
-    this.full_name_of_load = full_name_of_load;
+  public void setFullNameOfLoad(String fullNameOfLoad) {
+    this.fullNameOfLoad = fullNameOfLoad;
   }
 
-  public String getFull_name_of_specialty() {
-    return full_name_of_specialty;
+  public String getFullNameOfSpecialty() {
+    return fullNameOfSpecialty;
   }
 
-  public void setFull_name_of_specialty(String full_name_of_specialty) {
-    this.full_name_of_specialty = full_name_of_specialty;
+  public void setFullNameOfSpecialty(String fullNameOfSpecialty) {
+    this.fullNameOfSpecialty = fullNameOfSpecialty;
   }
 
-  public Integer getGroup_num() {
-    return group_num;
+  public Integer getGroupNum() {
+    return groupNum;
   }
 
-  public void setGroup_num(Integer group_num) {
-    this.group_num = group_num;
+  public void setGroupNum(Integer groupNum) {
+    this.groupNum = groupNum;
   }
 
   public Integer getSubgroup() {
@@ -103,28 +123,28 @@ public class ViewTimetable {
     this.subgroup = subgroup;
   }
 
-  public String getLast_name() {
-    return last_name;
+  public String getLastName() {
+    return lastName;
   }
 
-  public void setLast_name(String last_name) {
-    this.last_name = last_name;
+  public void setLastName(String lastName) {
+    this.lastName = lastName;
   }
 
-  public String getFirst_name() {
-    return first_name;
+  public String getFirstName() {
+    return firstName;
   }
 
-  public void setFirst_name(String first_name) {
-    this.first_name = first_name;
+  public void setFirstName(String firstName) {
+    this.firstName = firstName;
   }
 
-  public String getMiddle_name() {
-    return middle_name;
+  public String getMiddleName() {
+    return middleName;
   }
 
-  public void setMiddle_name(String middle_name) {
-    this.middle_name = middle_name;
+  public void setMiddleName(String middleName) {
+    this.middleName = middleName;
   }
 
   public ViewTimetable() {

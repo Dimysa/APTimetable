@@ -30,4 +30,9 @@ public class SpecialtiesServiceImpl implements SpecialtiesService {
     public List<Specialties> findAll() {
         return specaltiesRepository.findAll();
     }
+
+    @Override
+    public Specialties findOne(String codeSpec) {
+        return specaltiesRepository.findOne(codeSpec);
+    }
 }
