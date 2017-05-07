@@ -20,23 +20,26 @@ public class TimetableServiceImpl implements TimetableService {
     TimetableRepository timetableRepository;
     @Autowired
     StreamRepository streamRepository;
+
     @Override
     public boolean save(Timetable timetable) {
         try {
             if (timetable.getIdOfStream() == null) {
                 timetableRepository.save(timetable);
+                timetableRepository.flush();
             } else {
                 Collection<Substream> stream = streamRepository.findOne(timetable.getIdOfStream()).getSubstreams();
-                for (Substream item : stream
-                        ) {
-                    timetable.setCodeOfSpecialty(item.getCodeOfSpecialty());
-                    timetableRepository.save(timetable);
+                for (Substream item : stream) {
+                    if (item.getIdOfDiscipline() == timetable.getIdOfDiscipline()) {
+                        Timetable saveTimetable = new Timetable(timetable);
+                        saveTimetable.setCodeOfSpecialty(item.getCodeOfSpecialty());
+                        timetableRepository.save(saveTimetable);
+                        timetableRepository.flush();
+                    }
                 }
             }
-            timetableRepository.flush();
             return true;
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
             return false;
         }

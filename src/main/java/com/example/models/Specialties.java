@@ -1,9 +1,9 @@
 package com.example.models;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
+import javax.persistence.*;
 
 @Entity
 @Table(name = "specialties")
@@ -22,6 +22,18 @@ public class Specialties {
   @Column(name = "id_of_faculty")
   private int idOfFaculty;
 
+  @ManyToOne
+  @JoinColumn(name = "id_of_faculty", insertable = false, updatable = false, foreignKey = @ForeignKey(name = "specialties_id_of_faculty_fkey"))
+  @JsonBackReference
+  private Faculties faculty;
+
+  public Faculties getFaculty() {
+    return faculty;
+  }
+
+  public void setFaculty(Faculties faculty) {
+    this.faculty = faculty;
+  }
 
 
   public String getCodeOfSpecialty() {

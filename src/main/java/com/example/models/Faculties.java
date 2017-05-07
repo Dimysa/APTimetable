@@ -1,6 +1,10 @@
 package com.example.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
+import java.util.Collection;
 
 @Entity
 @Table(name = "faculties")
@@ -16,6 +20,18 @@ public class Faculties {
 
   @Column(name = "full_name_of_faculty", nullable = false)
   private String fullNameOfFaculty;
+
+  @OneToMany(mappedBy = "faculty", fetch = FetchType.EAGER)
+  @JsonManagedReference
+  private Collection<Specialties> specialties;
+
+  public Collection<Specialties> getSpecialties() {
+    return specialties;
+  }
+
+  public void setSpecialties(Collection<Specialties> specialties) {
+    this.specialties = specialties;
+  }
 
   public void update(Faculties faculties) {
     this.id = faculties.getId();

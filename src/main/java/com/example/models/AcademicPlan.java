@@ -2,6 +2,7 @@ package com.example.models;
 
 
 import com.example.models.id.AcademicPlanId;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -21,15 +22,29 @@ public class AcademicPlan {
   private int semester;
 
   @OneToOne
-  @JoinColumn(name = "code_of_specialty", updatable = false, insertable = false)
-  private Specialties specialties;
+  @JoinColumn(name = "code_of_specialty", updatable = false, insertable = false, foreignKey = @ForeignKey(name = "academic_plan_code_of_specialty_fkey"))
+  @JsonManagedReference
+  private Specialties specialty;
 
-  public Specialties getSpecialties() {
-    return specialties;
+  @OneToOne
+  @JoinColumn(name = "id_of_discipline", updatable = false, insertable = false, foreignKey = @ForeignKey(name = "academic_plan_id_of_discipline_fkey"))
+  @JsonManagedReference
+  private Disciplines discipline;
+
+  public Disciplines getDiscipline() {
+    return discipline;
   }
 
-  public void setSpecialties(Specialties specialties) {
-    this.specialties = specialties;
+  public void setDiscipline(Disciplines discipline) {
+    this.discipline = discipline;
+  }
+
+  public Specialties getSpecialty() {
+    return specialty;
+  }
+
+  public void setSpecialty(Specialties specialty) {
+    this.specialty = specialty;
   }
 
   public String getCodeOfSpecialty() {

@@ -26,7 +26,7 @@ public class Subgroup {
   private int countOfStudents;
 
   @ManyToOne()
-  @JoinColumns(value = {
+  @JoinColumns(foreignKey = @ForeignKey(name = "subgroup_code_of_specialty_fkey"), value = {
           @JoinColumn(name = "code_of_specialty", nullable = false, insertable = false, updatable = false),
           @JoinColumn(name = "group_num", nullable = false, insertable = false, updatable = false),
           @JoinColumn(name = "semester", nullable = false, insertable = false, updatable = false)

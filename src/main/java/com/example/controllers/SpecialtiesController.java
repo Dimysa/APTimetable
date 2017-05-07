@@ -2,7 +2,6 @@ package com.example.controllers;
 
 import com.example.models.AcademicPlan;
 import com.example.models.Specialties;
-import com.example.models.Substream;
 import com.example.service.AcademicPlanService;
 import com.example.service.DisciplinesService;
 import com.example.service.SpecialtiesService;
@@ -35,7 +34,7 @@ public class SpecialtiesController {
         List<AcademicPlan> list =  academicPlanService.findByIdOfDisciplineAndSemester(id, sem);
         for (AcademicPlan item :
                 list) {
-            result.add(item.getSpecialties());
+            result.add(item.getSpecialty());
         }
         return result;
     }

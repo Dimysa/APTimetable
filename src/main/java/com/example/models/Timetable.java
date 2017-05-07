@@ -27,14 +27,14 @@ public class Timetable {
   @Column(name = "code_of_specialty")
   private String codeOfSpecialty;
   @Column(name = "group_num")
-  private Integer groupNum;
+  private Integer group;
   private Integer subgroup;
   private Integer semester;
   @Column(name = "id_of_teacher")
   private Integer idOfTeacher;
 
   @OneToOne
-  @JoinColumn(name = "id_of_stream", updatable = false, insertable = false)
+  @JoinColumn(name = "id_of_stream", updatable = false, insertable = false, foreignKey = @ForeignKey(name = "timetable_id_of_stream"))
   private Stream stream;
 
   public Stream getStream() {
@@ -125,12 +125,12 @@ public class Timetable {
     this.codeOfSpecialty = codeOfSpecialty;
   }
 
-  public Integer getGroupNum() {
-    return groupNum;
+  public Integer getGroup() {
+    return group;
   }
 
-  public void setGroupNum(Integer groupNum) {
-    this.groupNum = groupNum;
+  public void setGroup(Integer group) {
+    this.group = group;
   }
 
   public Integer getSubgroup() {
@@ -147,5 +147,24 @@ public class Timetable {
 
   public void setIdOfTeacher(Integer idOfTeacher) {
     this.idOfTeacher = idOfTeacher;
+  }
+
+  public Timetable(Timetable timetable) {
+    this.date = timetable.getDate();
+    this.idClass = timetable.getIdClass();
+    this.numberOfWeek = timetable.getNumberOfWeek();
+    this.numberOfAuditorium = timetable.getNumberOfAuditorium();
+    this.idOfDiscipline = timetable.getIdOfDiscipline();
+    this.typeOfLoad = timetable.getTypeOfLoad();
+    this.idOfStream = timetable.getIdOfStream();
+    this.codeOfSpecialty = timetable.getCodeOfSpecialty();
+    this.group = timetable.getGroup();
+    this.subgroup = timetable.getSubgroup();
+    this.semester = timetable.getSemester();
+    this.idOfTeacher = timetable.getIdOfTeacher();
+    this.stream = timetable.getStream();
+  }
+
+  public Timetable() {
   }
 }

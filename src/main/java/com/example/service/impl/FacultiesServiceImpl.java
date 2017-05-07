@@ -50,6 +50,7 @@ public class FacultiesServiceImpl implements FacultiesService {
         else {
             faculties.update(changeFaculty);
             faculties = facultiesRepository.save(faculties);
+            facultiesRepository.flush();
             return faculties;
         }
     }
@@ -57,5 +58,10 @@ public class FacultiesServiceImpl implements FacultiesService {
     @Override
     public void delete(Integer id) {
         facultiesRepository.delete(id);
+    }
+
+    @Override
+    public Faculties findById(int id) {
+        return facultiesRepository.findOne(id);
     }
 }

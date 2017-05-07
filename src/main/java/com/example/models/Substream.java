@@ -20,15 +20,12 @@ public class Substream {
   @Column(name = "code_of_specialty")
   private String codeOfSpecialty;
 
-  @Column(name = "group_num")
-  private int group;
-
   private int semester;
   @Column(name = "id_of_discipline")
   private int idOfDiscipline;
 
   @ManyToOne
-  @JoinColumn(name = "id", insertable = false, updatable = false)
+  @JoinColumn(name = "id", insertable = false, updatable = false, foreignKey = @ForeignKey(name = "substream_id_fkey"))
   @JsonBackReference
   private Stream stream;
 
@@ -62,14 +59,6 @@ public class Substream {
 
   public void setCodeOfSpecialty(String codeOfSpecialty) {
     this.codeOfSpecialty = codeOfSpecialty;
-  }
-
-  public int getGroup() {
-    return group;
-  }
-
-  public void setGroup(int group) {
-    this.group = group;
   }
 
   public int getSemester() {

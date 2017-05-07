@@ -12,4 +12,5 @@ public interface FacultiesService {
     Faculties findByShortName(String shortName);
     Faculties saveOrUpdate(Faculties faculties);
     void delete(Integer id);
+    Faculties findById(int id);
 }
