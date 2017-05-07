@@ -10,7 +10,7 @@ public class Timetable {
   @SequenceGenerator(name="timetable", sequenceName = "timetable_id_seq")
   @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "timetable")
   private Integer id;
-
+  @Column(name = "timetable_date")
   private java.sql.Date date;
   @Column(name = "id_class")
   private Integer idClass;

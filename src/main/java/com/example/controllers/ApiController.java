@@ -2,85 +2,23 @@ package com.example.controllers;
 
 import com.example.models.*;
 import com.example.repository.TimeRepository;
-import com.example.repository.TimetableRepository;
 import com.example.repository.TypeOfAuditoriumRepository;
 import com.example.repository.ViewTimetableRepository;
 import com.example.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.management.Query;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import javax.swing.text.View;
-import java.io.Serializable;
 import java.util.*;
-import java.util.stream.Collectors;
 
 /**
  * Created by supercat on 9.4.17.
  */
-class Params implements Serializable {
-    int idFaculty;
-    int semester;
-
-    public Params(int idFaculty, int semester) {
-        this.idFaculty = idFaculty;
-        this.semester = semester;
-    }
-
-    @Override
-    public String toString() {
-        return "{" +
-                "\"idFaculty\":" + idFaculty +
-                ", \"semester\":" + semester +
-                '}';
-    }
-}
 @RestController
 public class ApiController {
+
     @Autowired
     FacultiesService facultiesService;
-    @Autowired
-    TypeOfLoadService typeOfLoadService;
-    @Autowired
-    AuditoriumsService auditoriumsService;
-    @Autowired
-    AcademicPlanService academicPlanService;
-    @Autowired
-    DisciplinesService disciplinesService;
-    @Autowired
-    SubstreamService substreamService;
-    @Autowired
-    StreamService streamService;
-    @Autowired
-    SubgroupService subgroupService;
-    @Autowired
-    GroupService groupService;
-    @Autowired
-    SpecialtiesService specialtiesService;
-    @Autowired
-    TeachersService teachersService;
-    @Autowired
-    TimetableService timetableService;
-    @Autowired
-    ViewTimetableRepository viewTimetableRepository;
-    @Autowired
-    TimeRepository timeRepository;
-    @Autowired
-    TypeOfAuditoriumRepository typeOfAuditoriumRepository;
-
-    @RequestMapping("/ApiInfo")
-    public ResponseEntity<String> Get() {
-        String result = "/EditParams (params=faculty, course, semester)\n" + "/Faculties\n" + "/TypeOfLoad\n"
-                + "/Auditoriums (params = type)\n" + "/Disciplines (params=idFaculty, semester)\n"
-                + "/Stream (params=nameDiscipline, semester / null)\n" +
-                "/Specialties (params=nameDiscipline, semester / idFaculty)\n";
-        return ResponseEntity.ok(result);
-    }
 
     @RequestMapping(value = "/EditParams", params = {"faculty", "course", "semester"}, produces = "application/json")
     public String editParams(@RequestParam("faculty") String faculty, @RequestParam("course") int course, @RequestParam("semester") int sem) {
@@ -94,128 +32,4 @@ public class ApiController {
         return result.toString();
     }
 
-    @RequestMapping(value = "/Faculties", method = RequestMethod.GET)
-    public List<Faculties> getFaculties() {
-        List<Faculties> list = facultiesService.findAllFaculties();
-        return list;
-    }
-    @RequestMapping(value = "/Faculties", method = RequestMethod.POST)
-    public ResponseEntity<Faculties> saveFaculties(@RequestBody Faculties faculties) {
-        Faculties fac = facultiesService.saveOrUpdate(faculties);
-        if(fac == null)
-            return new ResponseEntity<Faculties>(HttpStatus.BAD_REQUEST);
-        else
-            return new ResponseEntity<Faculties>(fac, HttpStatus.OK);
-    }
-    @RequestMapping(value = "/Faculties/{id}", method = RequestMethod.DELETE)
-    public ResponseEntity deleteFaulty(@PathVariable Integer id) {
-        facultiesService.delete(id);
-        return new ResponseEntity(HttpStatus.OK);
-    }
-
-    @RequestMapping("/TypeOfLoad")
-    public List<TypeOfLoad> getTypeOfLoad() {
-        return typeOfLoadService.getAll();
-    }
-
-    @RequestMapping(value = "/Auditoriums", method = RequestMethod.GET)
-    public List<Auditoriums> getAuditoriums(@RequestParam("type") String type) {
-        return auditoriumsService.findByType(type);
-    }
-
-    @RequestMapping(value = "/Disciplines", params = {"idFaculty", "semester"}, method = RequestMethod.GET)
-    public List<Disciplines> getDisciplines(@RequestParam("idFaculty") int idFac, @RequestParam("semester") int sem) {
-        return disciplinesService.findByIdOfFacAndSem(idFac, sem);
-    }
-
-    @RequestMapping(value = "/Stream", params = {"nameDiscipline", "semester"}, method = RequestMethod.GET)
-    public List<Stream> getStreamByNameDiscAndSem(@RequestParam("nameDiscipline") String nameDisc, @RequestParam("semester") int sem) {
-        List<Stream> list = new ArrayList<Stream>();
-        int id = disciplinesService.findByName(nameDisc).getId();
-        for (Substream item : substreamService.findBySemAndIdOfDisc(sem, id)
-             ) {
-            list.add(item.getStream());
-        }
-        return list.stream().distinct().collect(Collectors.toList());
-    }
-
-    @RequestMapping(value = "/Substream")
-    public List<Substream> getSubstream() {
-        return substreamService.findAll();
-    }
-
-    @RequestMapping(value = "/Stream", method = RequestMethod.GET)
-    public List<Stream> getStream() {
-        return streamService.findAll();
-    }
-
-    @RequestMapping(value = "/Specialties", method = RequestMethod.GET, params = {"nameDiscipline", "semester"})
-    public List<Specialties> getSpecialties(@RequestParam("nameDiscipline") String nameDisc, @RequestParam("semester") int sem) {
-        List<Specialties> result = new ArrayList<Specialties>();
-        int id = disciplinesService.findByName(nameDisc).getId();
-        List<AcademicPlan> list =  academicPlanService.findByIdOfDisciplineAndSemester(id, sem);
-        for (AcademicPlan item :
-                list) {
-            result.add(item.getSpecialties());
-        }
-        return result;
-    }
-    @RequestMapping(value = "/Specialties", method = RequestMethod.GET, params = {"idFaculty"})
-    public List<Specialties> getSpecialties(@RequestParam("idFaculty") int idFaculty){
-        return specialtiesService.findByIdOfFaculty(idFaculty);
-    }
-    @RequestMapping(value = "/Specialties", method = RequestMethod.GET)
-    public List<Specialties> getSpecialties() {
-        return specialtiesService.findAll();
-    }
-
-    @RequestMapping(value = "/Group", method = RequestMethod.GET, params = {"nameSpec", "semester"})
-    public List<Group> getGroup(@RequestParam("nameSpec") String nameSpec, @RequestParam("semester") int sem) {
-        Specialties spec = specialtiesService.findByShortName(nameSpec).get(0);
-        return groupService.findByCodeOfSpecialtyAndSemestry(spec.getCodeOfSpecialty(), sem);
-    }
-
-    @RequestMapping(value = "/Subgroup", method = RequestMethod.GET, params = {"nameSpec", "semester", "group"})
-    public List<Subgroup> getSubgroup(@RequestParam("nameSpec") String nameSpec, @RequestParam("semester") int sem, @RequestParam("group") int group) {
-        Specialties spec = specialtiesService.findByShortName(nameSpec).get(0);
-        return subgroupService.findByCodeSpecAndSemAndGroup(spec.getCodeOfSpecialty(), sem, group);
-    }
-
-    @RequestMapping(value = "/Teachers", method = RequestMethod.GET)
-    public List<Teachers> getTeachers() {
-        return teachersService.findAll();
-    }
-
-    @RequestMapping(value = "/Timetable", method = RequestMethod.POST)
-    public ResponseEntity timetable(@RequestBody Timetable timetable) {
-        System.out.println("TEST");
-        if(timetableService.save(timetable))
-            return new ResponseEntity(HttpStatus.OK);
-        else
-            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
-    }
-    @RequestMapping(value = "/Timetable", method = RequestMethod.GET)
-    public ResponseEntity<List<ViewTimetable>> getTimetable() {
-        return ResponseEntity.ok(viewTimetableRepository.getView());
-    }
-    @RequestMapping(value = "/Timetable", method = RequestMethod.GET, params = {"codeSpec", "semester"})
-    public ResponseEntity<List<ViewTimetable>>getTimetable(@RequestParam("codeSpec") String codeSpec, @RequestParam("semester") Integer sem) {
-        String fullNameSpec = specialtiesService.findOne(codeSpec).getFullNameOfSpecialty();
-        return ResponseEntity.ok(viewTimetableRepository.findByFullNameOfSpecialtyAndSemester(fullNameSpec, sem));
-    }
-    @RequestMapping(value = "/Timetable/{id}", method = RequestMethod.DELETE)
-    public ResponseEntity deleteTimetable(@PathVariable int id) {
-        timetableService.delete(id);
-        return new ResponseEntity(HttpStatus.OK);
-    }
-
-    @RequestMapping(value = "/Time", method = RequestMethod.GET)
-    public ResponseEntity<List<Time>> getTime() {
-        return ResponseEntity.ok(timeRepository.findAll());
-    }
-
-    @RequestMapping(value = "TypeOfAuditorium", method = RequestMethod.GET)
-    public ResponseEntity<List<TypeOfAuditorium>> getTypeOfAuditorium() {
-        return ResponseEntity.ok(typeOfAuditoriumRepository.findAll());
-    }
 }
