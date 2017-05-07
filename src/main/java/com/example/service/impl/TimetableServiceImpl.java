@@ -41,4 +41,9 @@ public class TimetableServiceImpl implements TimetableService {
             return false;
         }
     }
+
+    @Override
+    public void delete(int id) {
+        timetableRepository.delete(id);
+    }
 }

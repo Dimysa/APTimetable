@@ -9,29 +9,29 @@ public class Timetable {
   @Id
   @SequenceGenerator(name="timetable", sequenceName = "timetable_id_seq")
   @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "timetable")
-  private Long id;
+  private Integer id;
 
   private java.sql.Date date;
   @Column(name = "id_class")
-  private Long idClass;
+  private Integer idClass;
   @Column(name = "number_of_week")
-  private Long numberOfWeek;
+  private Integer numberOfWeek;
   @Column(name = "number_of_auditorium")
   private String numberOfAuditorium;
   @Column(name = "id_of_discipline")
-  private Long idOfDiscipline;
+  private Integer idOfDiscipline;
   @Column(name = "typeOfLoad")
   private String typeOfLoad;
   @Column(name = "id_of_stream")
-  private Long idOfStream;
+  private Integer idOfStream;
   @Column(name = "code_of_specialty")
   private String codeOfSpecialty;
   @Column(name = "group_num")
-  private Long groupNum;
-  private Long subgroup;
-  private Long semester;
+  private Integer groupNum;
+  private Integer subgroup;
+  private Integer semester;
   @Column(name = "id_of_teacher")
-  private Long idOfTeacher;
+  private Integer idOfTeacher;
 
   @OneToOne
   @JoinColumn(name = "id_of_stream", updatable = false, insertable = false)
@@ -45,19 +45,19 @@ public class Timetable {
     this.stream = stream;
   }
 
-  public Long getSemester() {
+  public Integer getSemester() {
     return semester;
   }
 
-  public void setSemester(Long semester) {
+  public void setSemester(Integer semester) {
     this.semester = semester;
   }
 
-  public Long getId() {
+  public Integer getId() {
     return id;
   }
 
-  public void setId(Long id) {
+  public void setId(Integer id) {
     this.id = id;
   }
 
@@ -69,19 +69,19 @@ public class Timetable {
     this.date = date;
   }
 
-  public Long getIdClass() {
+  public Integer getIdClass() {
     return idClass;
   }
 
-  public void setIdClass(Long idClass) {
+  public void setIdClass(Integer idClass) {
     this.idClass = idClass;
   }
 
-  public Long getNumberOfWeek() {
+  public Integer getNumberOfWeek() {
     return numberOfWeek;
   }
 
-  public void setNumberOfWeek(Long numberOfWeek) {
+  public void setNumberOfWeek(Integer numberOfWeek) {
     this.numberOfWeek = numberOfWeek;
   }
 
@@ -93,11 +93,11 @@ public class Timetable {
     this.numberOfAuditorium = numberOfAuditorium;
   }
 
-  public Long getIdOfDiscipline() {
+  public Integer getIdOfDiscipline() {
     return idOfDiscipline;
   }
 
-  public void setIdOfDiscipline(Long idOfDiscipline) {
+  public void setIdOfDiscipline(Integer idOfDiscipline) {
     this.idOfDiscipline = idOfDiscipline;
   }
 
@@ -109,11 +109,11 @@ public class Timetable {
     this.typeOfLoad = typeOfLoad;
   }
 
-  public Long getIdOfStream() {
+  public Integer getIdOfStream() {
     return idOfStream;
   }
 
-  public void setIdOfStream(Long idOfStream) {
+  public void setIdOfStream(Integer idOfStream) {
     this.idOfStream = idOfStream;
   }
 
@@ -125,27 +125,27 @@ public class Timetable {
     this.codeOfSpecialty = codeOfSpecialty;
   }
 
-  public Long getGroupNum() {
+  public Integer getGroupNum() {
     return groupNum;
   }
 
-  public void setGroupNum(Long groupNum) {
+  public void setGroupNum(Integer groupNum) {
     this.groupNum = groupNum;
   }
 
-  public Long getSubgroup() {
+  public Integer getSubgroup() {
     return subgroup;
   }
 
-  public void setSubgroup(Long subgroup) {
+  public void setSubgroup(Integer subgroup) {
     this.subgroup = subgroup;
   }
 
-  public Long getIdOfTeacher() {
+  public Integer getIdOfTeacher() {
     return idOfTeacher;
   }
 
-  public void setIdOfTeacher(Long idOfTeacher) {
+  public void setIdOfTeacher(Integer idOfTeacher) {
     this.idOfTeacher = idOfTeacher;
   }
 }

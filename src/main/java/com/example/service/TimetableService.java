@@ -7,4 +7,5 @@ import com.example.models.Timetable;
  */
 public interface TimetableService {
     boolean save(Timetable timetable);
+    void delete(int id);
 }

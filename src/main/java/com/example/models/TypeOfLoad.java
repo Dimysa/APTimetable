@@ -1,7 +1,6 @@
 package com.example.models;
 
-import org.springframework.context.annotation.Primary;
-
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
@@ -10,24 +9,25 @@ import javax.validation.constraints.NotNull;
 public class TypeOfLoad {
 
   @Id
-  private String short_name_of_load;
-  @NotNull
-  private String full_name_of_load;
+  @Column(name = "short_name_of_load")
+  private String shortNameOfLoad;
+  @Column(name = "full_name_of_load", nullable = false)
+  private String fullNameOfLoad;
 
-  public String getShort_name_of_load() {
-    return short_name_of_load;
+  public String getShortNameOfLoad() {
+    return shortNameOfLoad;
   }
 
-  public void setShort_name_of_load(String short_name_of_load) {
-    this.short_name_of_load = short_name_of_load;
+  public void setShortNameOfLoad(String shortNameOfLoad) {
+    this.shortNameOfLoad = shortNameOfLoad;
   }
 
-  public String getFull_name_of_load() {
-    return full_name_of_load;
+  public String getFullNameOfLoad() {
+    return fullNameOfLoad;
   }
 
-  public void setFull_name_of_load(String full_name_of_load) {
-    this.full_name_of_load = full_name_of_load;
+  public void setFullNameOfLoad(String fullNameOfLoad) {
+    this.fullNameOfLoad = fullNameOfLoad;
   }
 
   public TypeOfLoad() {
@@ -37,8 +37,8 @@ public class TypeOfLoad {
   @Override
   public String toString() {
     return "TypeOfLoad{" +
-            "short_name_of_load='" + short_name_of_load + '\'' +
-            ", full_name_of_load='" + full_name_of_load + '\'' +
+            "shortNameOfLoad='" + shortNameOfLoad + '\'' +
+            ", fullNameOfLoad='" + fullNameOfLoad + '\'' +
             '}';
   }
 }

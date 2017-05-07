@@ -176,7 +176,7 @@
     function fillTypeLoadSelect(data) {
         var strRes = "";
         $.each(data, function (index, typeLoad) {
-            strRes += "<option value = " + typeLoad.short_name_of_load + ">" + typeLoad.short_name_of_load +  "</option>";
+            strRes += "<option value = " + typeLoad.shortNameOfLoad + ">" + typeLoad.shortNameOfLoad +  "</option>";
         });
         $("#typeLoad").html(strRes);
     }

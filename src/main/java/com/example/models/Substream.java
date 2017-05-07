@@ -9,7 +9,7 @@ import javax.persistence.*;
 public class Substream {
 
   @Id
-  @SequenceGenerator(name="substr", sequenceName = "substr_id_seq")
+  @SequenceGenerator(name="substr", sequenceName = "substream_id_key_seq")
   @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "substr")
   @Column(name = "id_key")
   private int idKey;

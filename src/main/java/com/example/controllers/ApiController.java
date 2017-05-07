@@ -1,7 +1,9 @@
 package com.example.controllers;
 
 import com.example.models.*;
+import com.example.repository.TimeRepository;
 import com.example.repository.TimetableRepository;
+import com.example.repository.TypeOfAuditoriumRepository;
 import com.example.repository.ViewTimetableRepository;
 import com.example.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,7 +42,6 @@ class Params implements Serializable {
 }
 @RestController
 public class ApiController {
-
     @Autowired
     FacultiesService facultiesService;
     @Autowired
@@ -67,6 +68,10 @@ public class ApiController {
     TimetableService timetableService;
     @Autowired
     ViewTimetableRepository viewTimetableRepository;
+    @Autowired
+    TimeRepository timeRepository;
+    @Autowired
+    TypeOfAuditoriumRepository typeOfAuditoriumRepository;
 
     @RequestMapping("/ApiInfo")
     public ResponseEntity<String> Get() {
@@ -197,5 +202,20 @@ public class ApiController {
     public ResponseEntity<List<ViewTimetable>>getTimetable(@RequestParam("codeSpec") String codeSpec, @RequestParam("semester") Integer sem) {
         String fullNameSpec = specialtiesService.findOne(codeSpec).getFullNameOfSpecialty();
         return ResponseEntity.ok(viewTimetableRepository.findByFullNameOfSpecialtyAndSemester(fullNameSpec, sem));
+    }
+    @RequestMapping(value = "/Timetable/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity deleteTimetable(@PathVariable int id) {
+        timetableService.delete(id);
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/Time", method = RequestMethod.GET)
+    public ResponseEntity<List<Time>> getTime() {
+        return ResponseEntity.ok(timeRepository.findAll());
+    }
+
+    @RequestMapping(value = "TypeOfAuditorium", method = RequestMethod.GET)
+    public ResponseEntity<List<TypeOfAuditorium>> getTypeOfAuditorium() {
+        return ResponseEntity.ok(typeOfAuditoriumRepository.findAll());
     }
 }

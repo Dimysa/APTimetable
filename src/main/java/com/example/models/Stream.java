@@ -12,11 +12,11 @@ public class Stream {
   @Id
   @SequenceGenerator(name="str", sequenceName = "stream_id_seq")
   @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "str")
-  private Long id;
+  private Integer id;
 
   private String name;
 
-  private Long semester;
+  private Integer semester;
 
   @OneToMany(mappedBy = "stream", fetch = FetchType.EAGER)
   @JsonManagedReference
@@ -30,11 +30,11 @@ public class Stream {
     this.substreams = substreams;
   }
 
-  public Long getId() {
+  public Integer getId() {
     return id;
   }
 
-  public void setId(Long id) {
+  public void setId(Integer id) {
     this.id = id;
   }
 
@@ -46,11 +46,11 @@ public class Stream {
     this.name = name;
   }
 
-  public Long getSemester() {
+  public Integer getSemester() {
     return semester;
   }
 
-  public void setSemester(Long semester) {
+  public void setSemester(Integer semester) {
     this.semester = semester;
   }
 
