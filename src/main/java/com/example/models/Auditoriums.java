@@ -16,15 +16,13 @@ public class Auditoriums {
   @Column(name = "short_name_of_auditorium", nullable = false)
   private String shortNameOfAuditorium;
 
-
-  public String getNumber() {
+  public String getNumberOfAuditorium() {
     return numberOfAuditorium;
   }
 
-  public void setNumber(String numberOfAuditorium) {
+  public void setNumberOfAuditorium(String numberOfAuditorium) {
     this.numberOfAuditorium = numberOfAuditorium;
   }
-
 
   public int getCapacity() {
     return capacity;
@@ -44,14 +42,5 @@ public class Auditoriums {
   }
 
   public Auditoriums() {
-  }
-
-  @Override
-  public String toString() {
-    return "Auditoriums{" +
-            "number='" + numberOfAuditorium + '\'' +
-            ", capacity=" + capacity +
-            ", shortNameOfAuditorium='" + shortNameOfAuditorium + '\'' +
-            '}';
   }
 }

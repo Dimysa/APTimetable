@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.Collection;
 
 @Entity
 @Table(name = "academic_plan")
@@ -20,16 +21,24 @@ public class AcademicPlan {
   private int idOfDiscipline;
   @Id @NotNull
   private int semester;
-
   @OneToOne
   @JoinColumn(name = "code_of_specialty", updatable = false, insertable = false, foreignKey = @ForeignKey(name = "academic_plan_code_of_specialty_fkey"))
   @JsonManagedReference
   private Specialties specialty;
-
   @OneToOne
   @JoinColumn(name = "id_of_discipline", updatable = false, insertable = false, foreignKey = @ForeignKey(name = "academic_plan_id_of_discipline_fkey"))
   @JsonManagedReference
   private Disciplines discipline;
+  @OneToMany(mappedBy = "academicPlan", fetch = FetchType.EAGER)
+  Collection<Load> loads;
+
+  public Collection<Load> getLoads() {
+    return loads;
+  }
+
+  public void setLoads(Collection<Load> loads) {
+    this.loads = loads;
+  }
 
   public Disciplines getDiscipline() {
     return discipline;

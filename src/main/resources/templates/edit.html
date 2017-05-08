@@ -1,10 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8"/>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
     <link href="css/bootstrap.min.css" rel="stylesheet"/>
     <link href="css/starter-template.css" rel="stylesheet"/>
     <link href="_layout.html" rel="import"/>
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
     <title>Title</title>
 </head>
 <body>
@@ -22,7 +31,6 @@
             <form class="form-group">
                 <label for="date">Enter date: </label>
                 <input id="date" type="date" class="input-group"/>
-                <br/>
                 <label for="numberClass">Select number class</label>
                 <select id="numberClass" class="form-control">
                     <option value="1">1</option>
@@ -33,26 +41,25 @@
                     <option value="6">6</option>
                     <option value="7">7</option>
                 </select>
-                <br/>
                 <label for="typeLoad">Type of load</label>
                 <select id="typeLoad" class="form-control"></select>
-                <br/>
                 <label for="discipline">Discipline</label>
                 <select id="discipline" class="form-control"></select>
-                <br/>
                 <label for="auditorium">Auditorium</label>
                 <select id="auditorium" class="form-control"></select>
-                <!-- if LK
-                <label for="stream">Stream</label>
-                <select id="stream" class="form-control"></select> -->
-                <!-- else -->
-                <label for="specialty">Specialty</label>
-                <select id="specialty" class="form-control"></select>
-                <label for="group">Group</label>
-                <select id="group" class="form-control"></select>
-                <label for="subgroup">Subgroup</label>
-                <select id="subgroup" class="form-control"></select>
-                <!-- end else -->
+                <br/>
+                <div class="lection" style="display: none">
+                    <label for="stream">Stream</label>
+                    <select id="stream" class="form-control"></select>
+                </div>
+                <div class="nonLection" style="display: none">
+                    <label for="specialty">Specialty</label>
+                    <select id="specialty" class="form-control"></select>
+                    <label for="group">Group</label>
+                    <select id="group" class="form-control"></select>
+                    <label for="subgroup">Subgroup</label>
+                    <select id="subgroup" class="form-control"></select>
+                </div>
                 <button class="btn btn-success" type="submit" id="postTimetable">Save</button>
             </form>
         </div>
@@ -64,136 +71,6 @@
 <!--  <script src="js/jquery-1.10.2.min.js"></script> -->
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <script src="js/bootstrap.min.js"></script>
-<script type="text/javascript">
-    $(document).ready(function () {
-        $.ajax({
-            url: '/TypeOfLoad',
-            async: false,
-            timeout: 30000,
-            type: 'GET',
-            dataType: 'json',
-            success: function (data) {
-                fillTypeLoadSelect(data);
-            }
-        });
-        $.ajax({
-            url: '/Disciplines?' + "idFaculty=" + sessionStorage.getItem("idFaculty") + "\u0026semester=" + sessionStorage.getItem("semester"),
-            type: 'GET',
-            async: false,
-            timeout: 15000,
-            dataType: 'json',
-            success: function (data) {
-                fillDiscSelect(data);
-            }
-        });
-    });
-    $("#typeLoad").change(function () {
-        console.log("test");
-        var body = $("#typeLoad").val();
-        console.log(body);
-        $.ajax({
-            url: '/Auditoriums?type=' + body,
-            type: 'GET',
-            dataType: 'json',
-            success: function (msg) {
-                fillAuditorium(msg);
-            }
-        });
-    });
-    $("#discipline").change(function () {
-        var req = "nameDiscipline=" + $("#discipline option:selected").text() + "\u0026semester=" + sessionStorage.getItem("semester");
-        if($("#typeLoad").val() == "ЛК") {
-            $.ajax({
-                url: 'Stream?' + req,
-                type: 'GET',
-                dataType: 'json',
-                success: function (data) {
-                    fillStream(data);
-                }
-            });
-        }
-        else {
-            $.ajax({
-                url: 'Specialties?' + req,
-                type: 'GET',
-                dataType: 'json',
-                success: function (data) {
-                    fillSpecialties(data);
-                }
-            });
-        }
-    });
-    $("#specialty").change(function () {
-        let req = "nameSpec="+$("#specialty option:selected").text() + "\u0026semester=" + sessionStorage.getItem("semester");
-        $.ajax({
-            url: 'Group?' + req,
-            type: 'GET',
-            dataType: 'json',
-            success: function (data) {
-                fillGroup(data);
-            }
-        });
-    });
-    $("#group").change(function () {
-        let req = "nameSpec="+$("#specialty option:selected").text() + "\u0026semester=" + sessionStorage.getItem("semester") + "\u0026group=" + $("#group").val();
-        $.ajax({
-            url: 'Subgroup?' + req,
-            type: 'GET',
-            dataType: 'json',
-            success: function (data) {
-                fillSubgroup(data);
-            }
-        });
-    });
-    function fillSubgroup(data) {
-        var strRes = "";
-        $.each(data, function (index, item) {
-            strRes += "<option value = " + item.subgroup + ">" + item.subgroup +  "</option>";
-        });
-        $("#subgroup").html(strRes);
-    }
-    function fillGroup(data) {
-        var strRes = "";
-        $.each(data, function (index, item) {
-            strRes += "<option value = " + item.group + ">" + item.group +  "</option>";
-        });
-        $("#group").html(strRes);
-    }
-    function fillSpecialties(data) {
-        var strRes = "";
-        $.each(data, function (index, item) {
-            strRes += "<option value = " + item.shortNameOfSpecialty + ">" + item.shortNameOfSpecialty +  "</option>";
-        });
-        $("#specialty").html(strRes);
-    }
-    function fillStream(data) {
-        var strRes = "";
-        $.each(data, function (index, stream) {
-            strRes += "<option value = " + stream.name + ">" + stream.name +  "</option>";
-        });
-        $("#stream").html(strRes);
-    }
-    function fillTypeLoadSelect(data) {
-        var strRes = "";
-        $.each(data, function (index, typeLoad) {
-            strRes += "<option value = " + typeLoad.shortNameOfLoad + ">" + typeLoad.shortNameOfLoad +  "</option>";
-        });
-        $("#typeLoad").html(strRes);
-    }
-    function fillAuditorium(data) {
-        var strRes = "";
-        $.each(data, function (index, auditorium) {
-            strRes += "<option value = " + auditorium.number + ">" + auditorium.number +  "</option>";
-        });
-        $("#auditorium").html(strRes);
-    }
-    function fillDiscSelect(data) {
-        var strRes = "";
-        $.each(data, function (index, disc) {
-            strRes += "<option value = " + disc.nameOfDiscipline + ">" + disc.nameOfDiscipline + "</option>";
-        });
-        $("#discipline").html(strRes);
-    }
-</script>
+<script src="js/edit.js"></script>
 </body>
 </html>

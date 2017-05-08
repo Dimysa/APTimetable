@@ -20,7 +20,7 @@ public class Timetable {
   private String numberOfAuditorium;
   @Column(name = "id_of_discipline")
   private Integer idOfDiscipline;
-  @Column(name = "typeOfLoad")
+  @Column(name = "type_of_load")
   private String typeOfLoad;
   @Column(name = "id_of_stream")
   private Integer idOfStream;

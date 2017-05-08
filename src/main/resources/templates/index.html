@@ -77,35 +77,21 @@
         });
     });
     $("#subButton").click(function () {
-        let req = "faculty=" + $("#selectFaculty").val() + "\u0026course=" + $("#selectCourse").val()
-        + "\u0026semester=" + $("#selectSemestry").val();
-        $.ajax({
-            url: 'EditParams?' + req,
-            type: 'GET',
-            dataType: 'json',
-            success: function (data) {
-                sessionStorage.setItem("idFaculty", data.idFaculty);
-                sessionStorage.setItem("semester", data.semester);
-                document.location.href = "/edit";
-            }
-        });
+        let idFaculty = $("#selectFaculty").val();
+        let course = $("#selectCourse").val();
+        let sem = $("#selectSemestry").val();
+        sem = course * 2 - 2 + parseInt(sem);
+        sessionStorage.setItem("idFaculty", idFaculty);
+        sessionStorage.setItem("semester", sem);
+        document.location.href = "/edit";
     });
     function fillSelectFaculty(data) {
         var strResult = "";
         $.each(data, function (index, faculty) {
-            strResult += "<option value=" + faculty.shortNameOfFaculty + ">" + faculty.shortNameOfFaculty + "</option>";
+            strResult += "<option value=" + faculty.id + ">" + faculty.shortNameOfFaculty + "</option>";
         });
         console.log(strResult);
         $("#selectFaculty").html(strResult);
-    }
-    function WriteTable(data) {
-        var strResult = "<thead><tr><th>ID</th><th>Name</th><th>Full Name</th></tr></thead><tbody>";
-        $.each(data, function (index, faculty) {
-            strResult += "<tr><td>" + faculty.id + "</td><td> " + faculty.shortNameOfFaculty + "</td><td>" +
-                faculty.fullNameOfFaculty + "</td>" + "</tr>";
-        });
-        strResult += "</tbody>";
-        $("#infoTable").html(strResult);
     }
 </script>
 </body>

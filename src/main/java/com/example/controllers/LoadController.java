@@ -1,11 +1,7 @@
 package com.example.controllers;
 
-import com.example.models.AcademicPlan;
-import com.example.models.Disciplines;
-import com.example.models.Faculties;
-import com.example.models.Specialties;
-import com.example.service.AcademicPlanService;
-import com.example.service.DisciplinesService;
+import com.example.models.*;
+import com.example.repository.LoadRepository;
 import com.example.service.FacultiesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,25 +17,23 @@ import java.util.stream.Collectors;
  * Created by supercat on 7.5.17.
  */
 @RestController
-public class DisciplinesController {
+public class LoadController {
 
-    @Autowired
-    DisciplinesService disciplinesService;
     @Autowired
     FacultiesService facultiesService;
     @Autowired
-    AcademicPlanService academicPlanService;
+    LoadRepository loadRepository;
 
-    @RequestMapping(value = "/Disciplines", params = {"idFaculty", "semester"}, method = RequestMethod.GET)
-    public List<Disciplines> getDisciplines(@RequestParam("idFaculty") int idFac, @RequestParam("semester") int sem) {
+    @RequestMapping(value = "/Load", params = {"idFaculty", "semester", "load"}, method = RequestMethod.GET)
+    public List<Disciplines> getDisciplines(@RequestParam("idFaculty") int idFac, @RequestParam("semester") int sem, @RequestParam("load") String load) {
         List<Disciplines> resultList = new ArrayList<>();
         Faculties faculties = facultiesService.findById(idFac);
         for (Specialties item :
                 faculties.getSpecialties()) {
-            List<AcademicPlan> list = academicPlanService.findByCodeSpecAndSem(item.getCodeOfSpecialty(), sem);
-            for (AcademicPlan ap :
+            List<Load> list = loadRepository.findByCodeOfSpecialtyAndSemesterAndShortNameOfLoad(item.getCodeOfSpecialty(), sem, load);
+            for (Load l :
                     list) {
-                resultList.add(ap.getDiscipline());
+                resultList.add(l.getAcademicPlan().getDiscipline());
             }
         }
         return resultList.stream().distinct().collect(Collectors.toList());
