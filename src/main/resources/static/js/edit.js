@@ -19,6 +19,14 @@ $(document).ready(function () {
             fillDiscSelect(data);
         }
     });
+    $.ajax({
+        url: 'Teachers/',
+        type: 'GET',
+        dataType: 'json',
+        success: function (data) {
+            fillTeachersSelect(data);
+        }
+    })
 });
 $("#typeLoad").change(function () {
     if($("#typeLoad").val() == "ЛК") {
@@ -62,6 +70,29 @@ $("#specialty").change(function () {
 $("#group").change(function () {
     let req = "nameSpec="+$("#specialty option:selected").text() + "\u0026semester=" + sessionStorage.getItem("semester") + "\u0026group=" + $("#group").val();
    sendReqForSubgroup(req);
+});
+$("#postTimetable").click(function () {
+    let req = "day=" + $("#date").val() + "\u0026idClass=" + $("#numberClass").val() + "\u0026numberOfWeek=" + $("#numberOfWeek").val();
+   let body = {
+       numberOfAuditorium: $("#auditorium").val(),
+       idOfDiscipline: $("#discipline").val(),
+       typeOfLoad: $("#typeLoad").val(),
+       idOfStream: $("#stream").val(),
+       codeOfSpecilaty: $("#specialty").val(),
+       group: $("#group").val(),
+       subgroup: $("#subgroup").val(),
+       semester: sessionStorage.getItem("semester"),
+       idOfTeacher: $("#teachers").val()
+   };
+   $.ajax({
+       url: '/Timetable?' + req,
+       type: 'POST',
+       contentType: 'application/json; charset:utf-8',
+       data: JSON.stringify(body),
+       success: function (data) {
+           alert('Saved');
+       }
+   });
 });
 function loadInfoParams() {
     let req = "nameDiscipline=" + $("#discipline option:selected").text() + "\u0026semester=" + sessionStorage.getItem("semester");
@@ -110,6 +141,14 @@ function sendReqForSubgroup(req) {
         }
     });
 }
+function fillTeachersSelect(data) {
+    let strRes = "";
+    $.each(data, function (index, item) {
+        let teacher = item.lastName + " " + item.firstName + " " + item.middleName;
+        strRes += "<option value = " + item.id + ">" + teacher +  "</option>";
+    });
+    $("#teachers").html(strRes);
+}
 function fillSubgroup(data) {
     var strRes = "";
     $.each(data, function (index, item) {
@@ -129,7 +168,7 @@ function fillGroup(data) {
 function fillSpecialties(data) {
     var strRes = "";
     $.each(data, function (index, item) {
-        strRes += "<option value = " + item.codeOfSpecialty + ">" + item.shortNameOfSpecialty +  "</option>";
+        strRes += "<option value = " +"\"" + item.codeOfSpecialty + "\"" + ">" + item.shortNameOfSpecialty +  "</option>";
     });
     $("#specialty").html(strRes);
 }

@@ -17,7 +17,7 @@ public class ViewTimetable {
   public void setId(Integer id) {
     this.id = id;
   }
-  @Column(name = "timetable_date")
+  @Column(name = "calendar_date")
   private java.sql.Date date;
   @Column(name = "time")
   private String time;

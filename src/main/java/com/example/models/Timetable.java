@@ -10,12 +10,8 @@ public class Timetable {
   @SequenceGenerator(name="timetable", sequenceName = "timetable_id_seq")
   @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "timetable")
   private Integer id;
-  @Column(name = "timetable_date")
-  private java.sql.Date date;
-  @Column(name = "id_class")
-  private Integer idClass;
-  @Column(name = "number_of_week")
-  private Integer numberOfWeek;
+  @Column(name = "calendar_id")
+  private Integer calendarId;
   @Column(name = "number_of_auditorium")
   private String numberOfAuditorium;
   @Column(name = "id_of_discipline")
@@ -45,6 +41,14 @@ public class Timetable {
     this.stream = stream;
   }
 
+  public Integer getCalendarId() {
+    return calendarId;
+  }
+
+  public void setCalendarId(Integer calendarId) {
+    this.calendarId = calendarId;
+  }
+
   public Integer getSemester() {
     return semester;
   }
@@ -59,30 +63,6 @@ public class Timetable {
 
   public void setId(Integer id) {
     this.id = id;
-  }
-
-  public java.sql.Date getDate() {
-    return date;
-  }
-
-  public void setDate(java.sql.Date date) {
-    this.date = date;
-  }
-
-  public Integer getIdClass() {
-    return idClass;
-  }
-
-  public void setIdClass(Integer idClass) {
-    this.idClass = idClass;
-  }
-
-  public Integer getNumberOfWeek() {
-    return numberOfWeek;
-  }
-
-  public void setNumberOfWeek(Integer numberOfWeek) {
-    this.numberOfWeek = numberOfWeek;
   }
 
   public String getNumberOfAuditorium() {
@@ -150,9 +130,7 @@ public class Timetable {
   }
 
   public Timetable(Timetable timetable) {
-    this.date = timetable.getDate();
-    this.idClass = timetable.getIdClass();
-    this.numberOfWeek = timetable.getNumberOfWeek();
+    this.calendarId = timetable.getCalendarId();
     this.numberOfAuditorium = timetable.getNumberOfAuditorium();
     this.idOfDiscipline = timetable.getIdOfDiscipline();
     this.typeOfLoad = timetable.getTypeOfLoad();

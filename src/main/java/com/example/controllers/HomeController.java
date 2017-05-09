@@ -21,4 +21,7 @@ public class HomeController {
     public String edit() {
         return "edit";
     }
+
+    @RequestMapping("/schedule")
+    public String schedule() {return "schedule"; }
 }

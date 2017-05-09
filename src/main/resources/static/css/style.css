@@ -1,0 +1,115 @@
+﻿* 
+{
+    margin: 0;
+    padding: 0;
+}
+body
+{
+    font-family: arial,sans-serif;
+}
+#Schedule
+{
+    margin: 30px;
+    border: solid 1px Silver;
+    padding: 10px;
+    display: inline-block;
+}
+#Schedule table
+{
+    
+}
+#Schedule table thead tr td div
+{
+    color: #666;
+    text-align: center;
+    overflow: hidden;
+    background-color: White;
+    margin: 1px;
+    cursor: pointer;
+    padding: 8px 0;
+    font-size: 9pt;
+    font-weight: bold;
+    overflow: hidden;
+    border: solid 1px silver;
+    width: 80px;
+    background: url(../images/grad.png) left bottom repeat-x;
+}
+#Schedule table thead tr td div:hover
+{
+    color: #555;
+    border-color: #bfbfbf;
+    background: url(../images/gradRev.png) left bottom repeat-x;
+}
+#Schedule table thead tr td.hovered div
+{
+    color: #444;
+}
+#Schedule table thead tr td div.selected, #Schedule table thead tr td div.selected:hover
+{
+    background: url(../images/ggrad.png) left -2px repeat-x;
+    border-color: #b7c4df;
+    color: #444;
+}
+#Schedule table tbody tr td div
+{
+    border: solid 1px #ddd;
+    height: 25px;
+    cursor: pointer;
+    margin: 1px;
+}
+#Schedule table tbody tr td.hovered div
+{
+    
+    border-color: #ccc;
+    background: url(../images/ggrad2.png) left bottom repeat-x;
+}
+#Schedule table tbody tr td div.selected, #Schedule table tbody tr td div.selected:hover
+{
+    background: url(../images/ggrad.png) left -2px repeat-x;
+    border-color: #b7c4df;
+}
+
+
+#Schedule table tbody tr td div:hover
+{
+    border-color: #ccc;
+    background: url(../images/ggrad2.png) left bottom repeat-x;
+}
+#Schedule table tbody tr td div.selected:hover
+{
+
+}
+#Schedule table tbody tr td:first-child div
+{
+    padding: 1px 3px;
+    vertical-align: top;
+    font-size: 9pt;
+    cursor: default;
+    text-align: right;
+    margin: 0;
+    border: solid 1px White;
+    font-weight: bold;
+    color: #777;
+}
+
+#Schedule table tbody tr.hovered td:first-child div
+{
+    color: #333;
+    border-color: White;
+    background: none;
+
+}
+#Schedule table tbody tr td:first-child div:hover
+{
+    color: #777;
+}
+.ResultsHolder input
+{
+    margin: 10px 40px;
+}
+.ResultsHolder #output
+{
+    font-family: Courier New;
+    font-size: 10px;
+    padding: 20px;
+}
