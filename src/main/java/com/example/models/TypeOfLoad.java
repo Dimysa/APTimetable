@@ -3,9 +3,11 @@ package com.example.models;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 @Entity
+@Table(name = "type_of_loads")
 public class TypeOfLoad {
 
   @Id

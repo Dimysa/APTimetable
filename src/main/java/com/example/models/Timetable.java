@@ -10,36 +10,23 @@ public class Timetable {
   @SequenceGenerator(name="timetable", sequenceName = "timetable_id_seq")
   @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "timetable")
   private Integer id;
-  @Column(name = "calendar_id")
+  @Column(name = "id_of_calendar")
   private Integer calendarId;
   @Column(name = "number_of_auditorium")
   private String numberOfAuditorium;
   @Column(name = "id_of_discipline")
   private Integer idOfDiscipline;
-  @Column(name = "type_of_load")
+  @Column(name = "short_name_of_load")
   private String typeOfLoad;
-  @Column(name = "id_of_stream")
-  private Integer idOfStream;
   @Column(name = "code_of_specialty")
   private String codeOfSpecialty;
-  @Column(name = "group_num")
+  @Column(name = "number_of_group")
   private Integer group;
+  @Column(name = "number_of_subgroup")
   private Integer subgroup;
   private Integer semester;
   @Column(name = "id_of_teacher")
   private Integer idOfTeacher;
-
-  @OneToOne
-  @JoinColumn(name = "id_of_stream", updatable = false, insertable = false, foreignKey = @ForeignKey(name = "timetable_id_of_stream"))
-  private Stream stream;
-
-  public Stream getStream() {
-    return stream;
-  }
-
-  public void setStream(Stream stream) {
-    this.stream = stream;
-  }
 
   public Integer getCalendarId() {
     return calendarId;
@@ -89,14 +76,6 @@ public class Timetable {
     this.typeOfLoad = typeOfLoad;
   }
 
-  public Integer getIdOfStream() {
-    return idOfStream;
-  }
-
-  public void setIdOfStream(Integer idOfStream) {
-    this.idOfStream = idOfStream;
-  }
-
   public String getCodeOfSpecialty() {
     return codeOfSpecialty;
   }
@@ -134,13 +113,32 @@ public class Timetable {
     this.numberOfAuditorium = timetable.getNumberOfAuditorium();
     this.idOfDiscipline = timetable.getIdOfDiscipline();
     this.typeOfLoad = timetable.getTypeOfLoad();
-    this.idOfStream = timetable.getIdOfStream();
     this.codeOfSpecialty = timetable.getCodeOfSpecialty();
     this.group = timetable.getGroup();
     this.subgroup = timetable.getSubgroup();
     this.semester = timetable.getSemester();
     this.idOfTeacher = timetable.getIdOfTeacher();
-    this.stream = timetable.getStream();
+  }
+
+  public void update(Timetable timetable) {
+    if(timetable.getCalendarId() != null)
+      this.calendarId = timetable.getCalendarId();
+    if(timetable.getNumberOfAuditorium() != null)
+      this.numberOfAuditorium = timetable.getNumberOfAuditorium();
+    if(timetable.getIdOfDiscipline() != null)
+      this.idOfDiscipline = timetable.getIdOfDiscipline();
+    if(timetable.getTypeOfLoad() != null)
+      this.typeOfLoad = timetable.getTypeOfLoad();
+    if(timetable.getCodeOfSpecialty() != null)
+      this.codeOfSpecialty = timetable.getCodeOfSpecialty();
+    if(timetable.getGroup() != null)
+      this.group = timetable.getGroup();
+    if(timetable.getSubgroup() != null)
+      this.subgroup = timetable.getSubgroup();
+    if(timetable.getSemester() != null)
+      this.semester = timetable.getSemester();
+    if(timetable.getIdOfTeacher() != null)
+      this.idOfTeacher = timetable.getIdOfTeacher();
   }
 
   public Timetable() {

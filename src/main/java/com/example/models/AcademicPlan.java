@@ -3,6 +3,8 @@ package com.example.models;
 
 import com.example.models.id.AcademicPlanId;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -29,7 +31,8 @@ public class AcademicPlan {
   @JoinColumn(name = "id_of_discipline", updatable = false, insertable = false, foreignKey = @ForeignKey(name = "academic_plan_id_of_discipline_fkey"))
   @JsonManagedReference
   private Disciplines discipline;
-  @OneToMany(mappedBy = "academicPlan", fetch = FetchType.EAGER)
+  @OneToMany(mappedBy = "academicPlan")
+  @LazyCollection(LazyCollectionOption.FALSE)
   Collection<Load> loads;
 
   public Collection<Load> getLoads() {

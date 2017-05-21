@@ -1,5 +1,6 @@
-package com.example.controllers;
+package com.example.controllers.api;
 
+import com.example.controllers.crud.CrudController;
 import com.example.models.TypeOfAuditorium;
 import com.example.repository.TypeOfAuditoriumRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,13 +15,7 @@ import java.util.List;
  * Created by supercat on 7.5.17.
  */
 @RestController
-public class TypeOfAuditoriumContoller {
+@RequestMapping(value = "/security/TypeOfAuditorium")
+public class TypeOfAuditoriumContoller extends CrudController<TypeOfAuditorium, String, TypeOfAuditoriumRepository> {
 
-    @Autowired
-    TypeOfAuditoriumRepository typeOfAuditoriumRepository;
-
-    @RequestMapping(value = "TypeOfAuditorium", method = RequestMethod.GET)
-    public ResponseEntity<List<TypeOfAuditorium>> getTypeOfAuditorium() {
-        return ResponseEntity.ok(typeOfAuditoriumRepository.findAll());
-    }
 }

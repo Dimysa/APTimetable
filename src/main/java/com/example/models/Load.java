@@ -24,14 +24,14 @@ public class Load {
   @Column(name = "short_name_of_load")
   private String shortNameOfLoad;
   @Id
-  @Column(name = "number_of_hours")
+  @Column(name = "count_of_hours")
   private Integer numberOfHours;
   @ManyToOne
-  @JoinColumns(foreignKey = @ForeignKey(name = "load_code_of_specialty_fkey"), value = {
-          @JoinColumn(name = "code_of_specialty", referencedColumnName = "code_of_specialty", insertable = false, updatable = false),
-          @JoinColumn(name = "id_of_discipline", referencedColumnName = "id_of_discipline", insertable = false, updatable = false),
-          @JoinColumn(name = "semester", referencedColumnName = "semester", insertable = false, updatable = false)
-  })
+  @JoinColumns(value = {
+          @JoinColumn(name = "code_of_specialty", insertable = false, updatable = false),
+          @JoinColumn(name = "id_of_discipline", insertable = false, updatable = false),
+          @JoinColumn(name = "semester", insertable = false, updatable = false)
+  }, foreignKey = @ForeignKey(name = "load_code_of_specialty_fkey"))
   @JsonManagedReference
   private AcademicPlan academicPlan;
 

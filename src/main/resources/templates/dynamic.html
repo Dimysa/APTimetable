@@ -4,12 +4,12 @@
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <title>APTimetable</title>
+    <title>Bootstrap 101 Template</title>
 
     <!-- Bootstrap -->
-    <link href="css/bootstrap.min.css" rel="stylesheet"/>
-    <link href="css/starter-template.css" rel="stylesheet"/>
-    <link rel="import" href="_layout.html"/>
+    <link href="../css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="../css/starter-template.css" rel="stylesheet"/>
+    <link rel="import" href="../_layout.html"/>
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -25,22 +25,26 @@
 </script>
 
 <div class="container">
-    <p class="lead text-center">The helper for students and university</p>
-    <p class="lead text-center">
-        <a href="/security/startedit" class="btn btn-primary btn-lg" role="button">Edit timetable</a>
-        <a href="/startshow" class="btn btn-primary btn-lg" role="button">Show timetable</a>
-    </p>
+	<div class="row">
+      <div class="col-lg-12">
+          <h1>Table Records</h1>
+          <table class="table table-bordered" id="tableAddRow">
+              <thead>
+                  <tr class="col-head">                    
+                    
+                  </tr>
+              </thead>
+              <tbody>
+              </tbody>
+          </table>
+      </div>
+    </div>
+    <button class="btn btn-success" id="submitDate">Submit</button>
 </div>
-
-<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<!--<script src="js/jquery-1.10.2.min.js"></script>-->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="js/jquery-1.10.2.min.js"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="js/bootstrap.min.js"></script>
-<script type="text/javascript">
-    $(document).ready(function () {
-       sessionStorage.clear(); 
-    });
-</script>
+<script src="../js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../js/dynamic.js"></script>
 </body>
 </html>

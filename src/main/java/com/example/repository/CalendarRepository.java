@@ -11,4 +11,5 @@ import java.util.List;
  */
 public interface CalendarRepository extends JpaRepository<Calendar, Integer> {
     List<Calendar> findByIdClass(int idClass);
+    List<Calendar> findByCalendarDateBetween(Date startDate, Date endDate);
 }

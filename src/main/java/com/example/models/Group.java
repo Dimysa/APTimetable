@@ -3,63 +3,77 @@ package com.example.models;
 import com.example.models.id.GroupId;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
 import java.util.Collection;
 
 @Entity
-@Table(name = "group_table")
+@Table(name = "groups")
 @IdClass(GroupId.class)
 public class Group {
 
-  @Id
-  @Column(name = "code_of_specialty")
-  private String codeOfSpecialty;
+    @Id
+    @Column(name = "code_of_specialty")
+    private String codeOfSpecialty;
 
-  @Id
-  @Column(name = "group_num")
-  private int group;
+    @Id
+    @Column(name = "number_of_group")
+    private int group;
 
-  @Id
-  private int semester;
+    @Id
+    private int semester;
 
-  @OneToMany(mappedBy = "obj", fetch = FetchType.EAGER)
-  @JsonManagedReference
-  private Collection<Subgroup> subgroups;
+    @OneToMany(mappedBy = "obj", fetch = FetchType.EAGER)
+    @JsonBackReference
+    private Collection<Subgroup> subgroups;
 
+    @ManyToOne
+    @JoinColumn(name = "code_of_specialty", insertable = false, updatable = false,
+            foreignKey = @ForeignKey(name = "group_table_code_of_specialty_fkey"))
+    @JsonManagedReference
+    private Specialties specialties;
 
-  public Collection<Subgroup> getSubgroups() {
-    return this.subgroups;
-  }
+    public Group() {
+    }
 
-  public void setSubgroups(Collection<Subgroup> subgroups) {
-    this.subgroups = subgroups;
-  }
+    public Specialties getSpecialties() {
+        return specialties;
+    }
 
-  public String getCodeOfSpecialty() {
-    return codeOfSpecialty;
-  }
+    public void setSpecialties(Specialties specialties) {
+        this.specialties = specialties;
+    }
 
-  public void setCodeOfSpecialty(String codeOfSpecialty) {
-    this.codeOfSpecialty = codeOfSpecialty;
-  }
+    public Collection<Subgroup> getSubgroups() {
+        return this.subgroups;
+    }
 
-  public int getGroup() {
-    return group;
-  }
+    public void setSubgroups(Collection<Subgroup> subgroups) {
+        this.subgroups = subgroups;
+    }
 
-  public void setGroup(int group) {
-    this.group = group;
-  }
+    public String getCodeOfSpecialty() {
+        return codeOfSpecialty;
+    }
 
-  public int getSemester() {
-    return semester;
-  }
+    public void setCodeOfSpecialty(String codeOfSpecialty) {
+        this.codeOfSpecialty = codeOfSpecialty;
+    }
 
-  public void setSemester(int semester) {
-    this.semester = semester;
-  }
+    public int getGroup() {
+        return group;
+    }
 
-  public Group() {
-  }
+    public void setGroup(int group) {
+        this.group = group;
+    }
+
+    public int getSemester() {
+        return semester;
+    }
+
+    public void setSemester(int semester) {
+        this.semester = semester;
+    }
 }

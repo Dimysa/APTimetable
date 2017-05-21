@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Bootstrap 101 Template</title>
+
+    <!-- Bootstrap -->
+    <link href="../css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="../css/starter-template.css" rel="stylesheet"/>
+    <link rel="import" href="../_layout.html"/>
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+<script type="text/javascript">
+    var link = document.querySelector('link[rel=import]').import;
+    var doc = link.querySelector('.head');
+    document.body.appendChild(doc.cloneNode(true));
+</script>
+
+<div class="container">
+    <div class="row starter-template">
+        <div class="col-md-3 signin shadowbox" style="background-color: white" id="selectParam">
+            <div class="form-group">
+                <br/>
+                <label>Faculty</label>
+                <p><select class="form-control" id="selectFaculty">
+                </select></p>
+                <label>Course</label>
+                <p><select class="form-control" id="selectCourse">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                </select></p>
+                <label>Semester</label>
+                <p><select class="form-control" id="selectSemestry">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                </select></p>
+                <br/>
+                <p><button class="btn btn-success" type="submit" id="massEdit">Full edit</button>
+                <button class="btn btn-success" type="submit" id="dayEdit">Day edit</button></p>
+                <br/>
+            </div>
+        </div>
+        <div class="col-md-offset-6 col-md-3 signin shadowbox" style="background-color: white" id="btnDiv">
+            <br />
+            <a href="/security/auditoriums" class="btn btn-warning btn-block" role="button">Edit auditoriums</a>
+            <br />
+            <a href="/security/disciplines" class="btn btn-warning btn-block" role="button">Edit disciplines</a>
+            <br />
+            <a href="/security/pulpits" class="btn btn-warning btn-block" role="button">Edit pulpits</a>
+            <br />
+            <a href="/security/teachers" class="btn btn-warning btn-block" role="button">Edit teachers</a>
+            <br />
+            <a href="/security/faculties" class="btn btn-warning btn-block" role="button">Edit faculties</a>
+            <br />
+        </div>
+    </div>
+</div>
+
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<!--<script src="js/jquery-1.10.2.min.js"></script>-->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="../js/bootstrap.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $.ajax({
+            url: '/security/Faculties',
+            async: false,
+            timeout: 30000,
+            type: 'GET',
+            dataType: 'json',
+            success: function (data) {
+                fillSelectFaculty(data);
+            }
+        });
+        $("#massEdit").click(function () {
+            let idFaculty = $("#selectFaculty").val();
+            let course = $("#selectCourse").val();
+            let sem = $("#selectSemestry").val();
+            sem = course * 2 - 2 + parseInt(sem);
+            sessionStorage.setItem("idFaculty", idFaculty);
+            sessionStorage.setItem("semester", sem);
+            document.location.href = "/security/edit";
+        });
+        $('btnDiv').height(('#selectParam').height());
+    });
+    function fillSelectFaculty(data) {
+        var strResult = "";
+        $.each(data, function (index, faculty) {
+            strResult += "<option value=" + faculty.id + ">" + faculty.shortNameOfFaculty + "</option>";
+        });
+        console.log(strResult);
+        $("#selectFaculty").html(strResult);
+    }
+    $("#dayEdit").click(function () {
+        let idFaculty = $("#selectFaculty").val();
+        let course = $("#selectCourse").val();
+        let sem = $("#selectSemestry").val();
+        sem = course * 2 - 2 + parseInt(sem);
+        sessionStorage.setItem("idFaculty", idFaculty);
+        sessionStorage.setItem("semester", sem);
+        document.location.href = "/security/editday";
+    });
+</script>
+</body>
+</html>

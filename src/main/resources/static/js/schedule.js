@@ -1,21 +1,17 @@
 ﻿function DayClick(dayNum, obj) {
-    if ($(obj).hasClass('selected') && ($('#Schedule table tbody tr td.d' + dayNum + ' div.selected').length)) {
-        $('#Schedule table tbody tr td.d' + dayNum + ' div').removeClass('selected');
+    if ($(obj).hasClass('selected')) {
+        $('#Schedule table tbody tr td.d' + dayNum).removeClass('selected');
         $(obj).removeClass('selected');
     }
     else {
-        $('#Schedule table tbody tr td.d' + dayNum + ' div').addClass('selected');
+        $('#Schedule table tbody tr td.d' + dayNum).addClass('selected');
         $(obj).addClass('selected');
     };
 }
 $(document).ready(function() {
-    let currentDate = new Date;  // текущая дата
-    let prevWeekDate = new Date(currentDate); // дата на прошлой неделе
-    var weekStartDate = prevWeekDate.getWeekStartDate();  // дата понедельника прошлой недели
-    var weekEndDate = prevWeekDate.getWeekEndDate();  // дата воскресенья прошлой недели
-    sessionStorage.setItem("startDate", weekStartDate);
-    sessionStorage.setItem("endDate", weekEndDate);
-    generateTable();
+    sessionStorage.setItem("incDate", 0);
+    generateTable(new Date);
+    getTimetable(new Date);
     $('#Schedule table tbody tr .d0').hover(
         function() { $('#Schedule table thead tr td.d0').addClass('hovered') },
         function() { $('#Schedule table thead tr td.d0').removeClass('hovered') });
@@ -64,63 +60,100 @@ $(document).ready(function() {
         function() { $('#Schedule table td.d5').removeClass('hovered') })
             .click(function() { DayClick('5', this) });
 
-    $('#Schedule table tbody tr .d6').hover(
-        function() { $('#Schedule table thead tr td.d6').addClass('hovered') },
-        function() { $('#Schedule table thead tr td.d6').removeClass('hovered') });
-    $('#Schedule table thead tr .d6').hover(
-        function() { $('#Schedule table td.d6').addClass('hovered') },
-        function() { $('#Schedule table td.d6').removeClass('hovered') })
-            .click(function() { DayClick('6', this) });
-
     $('#Schedule table tr').hover(
         function() { $(this).addClass('hovered') },
         function() { $(this).removeClass('hovered') });
-    $('#Schedule table tbody tr td div').click(
+    $('#Schedule table tbody tr td').click(
         function() { $(this).toggleClass('selected') });
+    $("#btnNext").click(function () {
+        let inc = parseInt(sessionStorage.getItem("incDate")) + 7;
+        sessionStorage.setItem("incDate", inc);
+        let date = new Date;
+        date.setDate(date.getDate() + inc);
+        generateTable(date);
+        getTimetable(date);
+    });
+    $("#btnPrev").click(function () {
+        let inc = parseInt(sessionStorage.getItem("incDate")) - 7;
+        sessionStorage.setItem("incDate", inc);
+        let date = new Date;
+        date.setDate(date.getDate() + inc);
+        generateTable(date);
+        getTimetable(date);
+    });
 });
 
 function SubmitSchedule() {
-    var XMLSchedule = "<week>";
-    for (var d = 0; d < 7; d++) {
-        XMLSchedule += '<d id="' + d + '">'
-        for (var h = 7; h < 21; h++) {
-            if ($('#Schedule table tbody tr.h' + h + ' td.d' + d + ' div').hasClass('selected')) {
-                XMLSchedule += '<h v="' + h + '">1</h>';
+    var XMLSchedule = "";
+    for (var d = 0; d < 6; d++) {        
+        for (var h = 0; h < 7; h++) {
+            if ($('#Schedule table tbody tr.h' + h + ' td.d' + d).hasClass('selected')) {
+                XMLSchedule += 'd = ' + d + ' h = ' + h;
             }
-            else {
-                XMLSchedule += '<h v="' + h + '">0</h>';
-            };
-        }
-        XMLSchedule += '</d>';
+            XMLSchedule += '\n'
+        }        
     }
-    XMLSchedule += "</week>";
     $('#output').text(XMLSchedule);
 }
-
-function generateTable() {
+function generateTable(currDate) {
     $.ajax({
         url: '/Time',
         type: 'GET',
         dataType: 'json',
+        async: '15000',
         success: function (data) {
-            fillTable(data);
+            fillTable(data, currDate);
         }
     });
-};
-
-function fillTable(data) {
-    let currentDate = new Date;  // текущая дата
-    let prevWeekDate = new Date(currentDate); // дата на прошлой неделе
-    var date = prevWeekDate.getWeekStartDate();
+}
+function getTimetable(currDate) {
+    let req = "&startDate=" + currDate.getWeekStartDate().getFormatDate() +
+            "&endDate=" + currDate.getWeekEndDate().getFormatDate();
+    $.ajax({
+        url: 'ViewTimetable?codeSpec=' + sessionStorage.getItem('specialty') +
+         '&semester=' + sessionStorage.getItem('semester') + req + 
+         '&group=' + sessionStorage.getItem('group') + 
+         '&subgroup=' + sessionStorage.getItem('subgroup'),
+        type: 'GET',
+        dataType: 'json',
+        async: '15000',
+        success: function (data) {
+            fillTimetable(data, currDate);
+        }
+    });
+}
+function fillTimetable(data, currDate) {    
+    let date = currDate.getWeekStartDate();
     for(let i = 0; i < 6; i++) {
-        let mmdd = date.getDay() + "." + date.getMonth();
+        let strDate = date.getFormatDate();
+        for(let j = 0; j < 7; j++) {
+            $(".h" + j + " td.d" + i).html("");
+            $(".h" + j + " td.d" + i).removeAttr("id");
+            $.each(data, function (index, item) {
+                if($("#session" + j).html() == item.time && item.date == strDate) {
+                    let result = item.fullNameOfLoad +
+                        "<br \>" + item.nameOfDiscipline +
+                            "<br \>" + item.numberOfAuditorium +
+                            "<br \>" + item.lastName;
+                    $(".h" + j + " td.d" + i).html(result);
+                    $(".h" + j + " td.d" + i).attr("id", item.id);
+                }
+            })
+        }
+        date.setDate(date.getDate() + 1);
+    }
+}
+function fillTable(data, currDate) {
+    let date = currDate.getWeekStartDate();
+    for(let i = 0; i < 6; i++) {
+        let mmdd = date.getDate() + "." + parseInt(date.getMonth() + 1);
         let str = ".headDay td.d" + i + " div";
         $(str).html(mmdd);
-        date.setDate(date.getDay() + 1);
+        date.setDate(date.getDate() + 1);
     }
     $.each(data, function (index, time) {
         $("#session" + index).html(time.time);
-    });
+    });    
 }
 
 Date.prototype.getWeekDay = function() {
@@ -141,4 +174,14 @@ Date.prototype.getWeekEndDate = function() {
     var date = new Date(this.getTime());
     date.setDate(this.getDate()+(7-this.getWeekDay()));
     return date;
+};
+Date.prototype.getFormatDate =  function() {
+        var month = '' + (this.getMonth() + 1),
+        day = '' + this.getDate(),
+        year = this.getFullYear();
+
+    if (month.length < 2) month = '0' + month;
+    if (day.length < 2) day = '0' + day;
+
+    return [year, month, day].join('-');
 };

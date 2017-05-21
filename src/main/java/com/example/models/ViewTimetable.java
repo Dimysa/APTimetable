@@ -25,15 +25,15 @@ public class ViewTimetable {
   private Integer numberOfWeek;
   @Column(name = "number_of_auditorium")
   private String numberOfAuditorium;
-  @Column(name = "name_of_discipline")
+  @Column(name = "discipline")
   private String nameOfDiscipline;
   @Column(name = "full_name_of_load")
   private String fullNameOfLoad;
   @Column(name = "full_name_of_specialty")
   private String fullNameOfSpecialty;
-  @Column(name = "group_num")
+  @Column(name = "number_of_group")
   private Integer groupNum;
-  @Column(name = "subgroup")
+  @Column(name = "number_of_subgroup")
   private Integer subgroup;
   private Integer semester;
   @Column(name = "last_name")

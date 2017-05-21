@@ -4,12 +4,21 @@
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <link href="css/style.css" rel="stylesheet" type="text/css"/>
-    <title>Недельный календарик для бедных</title>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="css/style.css"/>
+    <link rel="stylesheet" type="text/css" href="css/starter-template.css"/>
+    <link rel="import" href="_layout.html"/>
+    <title>Расписание</title>
 </head>
 <body>
-<div id="Schedule">
-    <table cellpadding="0" cellspacing="0">
+<script type="text/javascript">
+    var link = document.querySelector('link[rel=import]').import;
+    var doc = link.querySelector('.head');
+    document.body.appendChild(doc.cloneNode(true));
+</script>
+
+<div id="Schedule" class="container">
+    <table cellpadding="0" cellspacing="0" class = "table table-responsive table-bordered">
         <thead>
         <tr class="headDay">
             <td></td>
@@ -46,7 +55,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr class='h1'>
+        <tr class='h0'>
             <td>
                 <div id="session0"></div>
             </td>
@@ -69,7 +78,7 @@
                 <div></div>
             </td>
         </tr>
-        <tr class='h2'>
+        <tr class='h1'>
             <td>
                 <div id="session1"></div>
             </td>
@@ -92,7 +101,7 @@
                 <div></div>
             </td>
         </tr>
-        <tr class='h3'>
+        <tr class='h2'>
             <td>
                 <div id="session2"></div>
             </td>
@@ -115,7 +124,7 @@
                 <div></div>
             </td>
         </tr>
-        <tr class='h4'>
+        <tr class='h3'>
             <td>
                 <div id="session3"></div>
             </td>
@@ -138,7 +147,7 @@
                 <div></div>
             </td>
         </tr>
-        <tr class='h5'>
+        <tr class='h4'>
             <td>
                 <div id="session4"></div>
             </td>
@@ -161,7 +170,7 @@
                 <div></div>
             </td>
         </tr>
-        <tr class='h6'>
+        <tr class='h5'>
             <td>
                 <div id="session5"></div>
             </td>
@@ -184,7 +193,7 @@
                 <div></div>
             </td>
         </tr>
-        <tr class='h7'>
+        <tr class='h6'>
             <td>
                 <div id="session6"></div>
             </td>
@@ -209,12 +218,17 @@
         </tr>
         </tbody>
     </table>
-</div>
-<div class='ResultsHolder'>
-    <input id="Button1" type="button" value="Обработать" onclick="SubmitSchedule()"/>
-    <div id="output"></div>
+    <div class="row">
+        <div class="col-md-1">
+            <button type="button" class="btn btn-default" id="btnPrev">Prev week</button>
+        </div>
+        <div class="col-md-1 col-md-offset-10">
+            <button type="button" class="btn btn-default" id="btnNext">Next week</button>
+        </div>   
+    </div>
 </div>
 <script src="js/jquery-1.10.2.min.js" type="text/javascript"></script>
-<script src="js/script.js" type="text/javascript"></script>
+<script src="js/bootstrap.min.js" type="text/javascript"></script>
+<script src="js/schedule.js" type="text/javascript"></script>
 </body>
 </html>

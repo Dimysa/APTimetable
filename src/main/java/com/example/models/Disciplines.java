@@ -9,16 +9,16 @@ public class Disciplines {
   @Id
   @SequenceGenerator(name="disc", sequenceName = "disciplines_id_seq")
   @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "disc")
-  private int id;
-  @Column(name = "name_of_discipline", nullable = false)
+  private Integer id;
+  @Column(name = "discipline", nullable = false)
   private String nameOfDiscipline;
 
 
-  public int getId() {
+  public Integer getId() {
     return id;
   }
 
-  public void setId(int id) {
+  public void setId(Integer id) {
     this.id = id;
   }
 

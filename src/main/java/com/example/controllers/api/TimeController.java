@@ -1,5 +1,6 @@
-package com.example.controllers;
+package com.example.controllers.api;
 
+import com.example.controllers.crud.CrudController;
 import com.example.models.Time;
 import com.example.repository.TimeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,14 +15,7 @@ import java.util.List;
  * Created by supercat on 7.5.17.
  */
 @RestController
-public class TimeController {
-    @Autowired
-    TimeRepository timeRepository;
-
-
-    @RequestMapping(value = "/Time", method = RequestMethod.GET)
-    public ResponseEntity<List<Time>> getTime() {
-        return ResponseEntity.ok(timeRepository.findAll());
-    }
+@RequestMapping(value = "/Time")
+public class TimeController extends CrudController<Time, Integer, TimeRepository> {
 
 }

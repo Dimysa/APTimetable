@@ -1,6 +1,8 @@
-package com.example.controllers;
+package com.example.controllers.api;
 
+import com.example.controllers.crud.CrudController;
 import com.example.models.TypeOfLoad;
+import com.example.repository.TypeOfLoadRepository;
 import com.example.service.TypeOfLoadService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,14 +14,7 @@ import java.util.List;
  * Created by supercat on 7.5.17.
  */
 @RestController
-public class TypeOfLoadController {
-
-    @Autowired
-    TypeOfLoadService typeOfLoadService;
-
-    @RequestMapping("/TypeOfLoad")
-    public List<TypeOfLoad> getTypeOfLoad() {
-        return typeOfLoadService.getAll();
-    }
+@RequestMapping(value = "/security/TypeOfLoad")
+public class TypeOfLoadController extends CrudController<TypeOfLoad, String, TypeOfLoadRepository> {
 
 }

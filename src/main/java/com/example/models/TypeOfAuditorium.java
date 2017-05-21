@@ -6,7 +6,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "type_of_auditorium")
+@Table(name = "type_of_auditoriums")
 public class TypeOfAuditorium {
 
   @Id

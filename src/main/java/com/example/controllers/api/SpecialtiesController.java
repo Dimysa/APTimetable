@@ -1,7 +1,9 @@
-package com.example.controllers;
+package com.example.controllers.api;
 
+import com.example.controllers.crud.CrudController;
 import com.example.models.AcademicPlan;
 import com.example.models.Specialties;
+import com.example.repository.SpecaltiesRepository;
 import com.example.service.AcademicPlanService;
 import com.example.service.DisciplinesService;
 import com.example.service.SpecialtiesService;
@@ -18,7 +20,8 @@ import java.util.List;
  * Created by supercat on 7.5.17.
  */
 @RestController
-public class SpecialtiesController {
+@RequestMapping(value = "/security/Specialties")
+public class SpecialtiesController extends CrudController<Specialties, String, SpecaltiesRepository> {
 
     @Autowired
     SpecialtiesService specialtiesService;
@@ -27,10 +30,9 @@ public class SpecialtiesController {
     @Autowired
     AcademicPlanService academicPlanService;
 
-    @RequestMapping(value = "/Specialties", method = RequestMethod.GET, params = {"nameDiscipline", "semester"})
-    public List<Specialties> getSpecialties(@RequestParam("nameDiscipline") String nameDisc, @RequestParam("semester") int sem) {
-        List<Specialties> result = new ArrayList<Specialties>();
-        int id = disciplinesService.findByName(nameDisc).getId();
+    @RequestMapping(method = RequestMethod.GET, params = {"idDiscipline", "semester"})
+    public List<Specialties> getSpecialties(@RequestParam("idDiscipline") int id, @RequestParam("semester") int sem) {
+        List<Specialties> result = new ArrayList<Specialties>();        
         List<AcademicPlan> list =  academicPlanService.findByIdOfDisciplineAndSemester(id, sem);
         for (AcademicPlan item :
                 list) {
@@ -38,14 +40,9 @@ public class SpecialtiesController {
         }
         return result;
     }
-    @RequestMapping(value = "/Specialties", method = RequestMethod.GET, params = {"idFaculty"})
+    @RequestMapping(method = RequestMethod.GET, params = {"idFaculty"})
     public List<Specialties> getSpecialties(@RequestParam("idFaculty") int idFaculty){
         return specialtiesService.findByIdOfFaculty(idFaculty);
     }
-    @RequestMapping(value = "/Specialties", method = RequestMethod.GET)
-    public List<Specialties> getSpecialties() {
-        return specialtiesService.findAll();
-    }
-
 
 }

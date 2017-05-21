@@ -22,7 +22,7 @@ public class Faculties {
   private String fullNameOfFaculty;
 
   @OneToMany(mappedBy = "faculty", fetch = FetchType.EAGER)
-  @JsonManagedReference
+  @JsonBackReference
   private Collection<Specialties> specialties;
 
   public Collection<Specialties> getSpecialties() {

@@ -14,7 +14,7 @@ public class Calendar {
   private java.sql.Date calendarDate;
   @Column(name = "number_of_week")
   private Integer numberOfWeek;
-  @Column(name = "id_class")
+  @Column(name = "id_of_time")
   private Integer idClass;
 
   public Integer getId() {

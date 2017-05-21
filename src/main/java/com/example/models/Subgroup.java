@@ -1,26 +1,26 @@
 package com.example.models;
 
 import com.example.models.id.SubgroupId;
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "subgroup")
+@Table(name = "subgroups")
 @IdClass(SubgroupId.class)
 public class Subgroup {
   @Id
   @Column(name = "code_of_specialty")
   private String codeOfSpecialty;
   @Id
-  @Column(name = "group_num")
+  @Column(name = "number_of_group")
   private int group;
   @Id
   private int semester;
   @Id
-  @Column(name = "subgroup_num", nullable = false)
+  @Column(name = "number_of_subgroup", nullable = false)
   private int subgroup;
   @Column(name = "count_of_students")
   private int countOfStudents;
@@ -28,10 +28,10 @@ public class Subgroup {
   @ManyToOne()
   @JoinColumns(foreignKey = @ForeignKey(name = "subgroup_code_of_specialty_fkey"), value = {
           @JoinColumn(name = "code_of_specialty", nullable = false, insertable = false, updatable = false),
-          @JoinColumn(name = "group_num", nullable = false, insertable = false, updatable = false),
+          @JoinColumn(name = "number_of_group", nullable = false, insertable = false, updatable = false),
           @JoinColumn(name = "semester", nullable = false, insertable = false, updatable = false)
   })
-  @JsonBackReference
+  @JsonManagedReference
   private Group obj;
 
   public Group getObj() {
