@@ -1,3 +1,6 @@
+<head>
+    <link href="css/login.css" rel="stylesheet"/>
+</head>
 <header class="head">
     <nav class="navbar navbar-default navbar-fixed-top shadowbox" role="navigation">
         <div class="container">
@@ -15,23 +18,37 @@
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li>
-                        <a href="#" id="login"><span class="glyphicon glyphicon-user"></span>Sing in</a>
+                        <a href="#" id="login" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user" style="margin-right: 4px"></span>Login</a>
+                        <ul id="login-dp" class="dropdown-menu">
+                            <li>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <!--Login via-->
+                                        <!--<div class="social-buttons">-->
+                                            <!--<a href="#" class="btn btn-fb"><i class="fa fa-facebook"></i> Facebook</a>-->
+                                            <!--<a href="#" class="btn btn-tw"><i class="fa fa-twitter"></i> Twitter</a>-->
+                                        <!--</div>-->
+                                        <!--or-->
+                                        <div class="form">
+                                            <div class="form-group">
+                                                <label class="sr-only" for="inLogin">Email address</label>
+                                                <input type="email" class="form-control" id="inLogin" placeholder="Email address" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="sr-only" for="inPass">Password</label>
+                                                <input type="password" class="form-control" id="inPass" placeholder="Password" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <button type="submit" class="btn btn-primary btn-block" id="btnLogin">Sign in</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
 </header>
-
-<div class="lection">
-    <label for="stream">Stream</label>
-    <select id="stream" class="form-control"></select>
-</div>
-<div class="nonLection">
-    <label for="specialty">Specialty</label>
-    <select id="specialty" class="form-control"></select>
-    <label for="group">Group</label>
-    <select id="group" class="form-control"></select>
-    <label for="subgroup">Subgroup</label>
-    <select id="subgroup" class="form-control"></select>
-</div>

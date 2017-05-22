@@ -1,6 +1,4 @@
-$(document).ready(function () {  
-        if(window.location.pathname.split("/")[1] == 'security')
-        $('#login').text = 'Admin';
+$(document).ready(function () {
     let temp = window.location.pathname.split('/');
     let myUrl = '/' + temp[1] + '/' + temp[2].replace(temp[2].charAt(0), temp[2].charAt(0).toUpperCase());
     var fields = [];

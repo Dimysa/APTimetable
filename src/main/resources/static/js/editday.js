@@ -2,8 +2,6 @@ var countTable = 0;
 var codeSpec = 0;
 var massSpec;
 $(function () {
-        if(window.location.pathname.split("/")[1] == 'security')
-        $('#login').text = 'Admin';
     $("#date").val(new Date);
     loadTable();
     $("#submitDate").click(function () {

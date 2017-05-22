@@ -1,7 +1,4 @@
 $(document).ready(function () {
-
-    if(window.location.pathname.split("/")[1] == 'security')
-        $('#login').text = 'Admin';
     $.ajax({
         url: '/security/TypeOfLoad',
         async: false,
