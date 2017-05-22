@@ -131,7 +131,7 @@
 
     function loadSpec() {
         $.ajax({
-            url: '/Specialties/' + $('#selectFaculty').val(),
+            url: '/Specialties?idFaculty=' + $('#selectFaculty').val(),
             type: 'GET',
             dataType: 'json',
             success: function (data) {
@@ -144,7 +144,7 @@
         let sem = $("#selectSemestry").val();
         sem = course * 2 - 2 + parseInt(sem);
         $.ajax({
-            url: 'Group?codeSpec=' + $('#selectSpecialty').val() + '\u0026semester=' + sem,
+            url: '/Group?codeSpec=' + $('#selectSpecialty').val() + '\u0026semester=' + sem,
             type: 'GET',
             dataType: 'json',
             success: function (data) {

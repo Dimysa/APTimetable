@@ -30,12 +30,12 @@ public class NonSecurityController {
         return ResponseEntity.ok(facultiesRepository.findAll());
     }
 
-    @RequestMapping(value = "/Specialties/{idFac}", method = RequestMethod.GET)
-    public ResponseEntity<List<Specialties>> getSpecialties(@PathVariable int idFac) {
+    @RequestMapping(value = "/Specialties", method = RequestMethod.GET, params = {"idFaculty"})
+    public ResponseEntity<List<Specialties>> getSpecialties(@RequestParam("idFaculty") int idFac) {
         return ResponseEntity.ok(specialtiesService.findByIdOfFaculty(idFac));
     }
 
-    @RequestMapping(value = "Group", method = RequestMethod.GET, params = {"codeSpec", "semester"})
+    @RequestMapping(value = "/Group", method = RequestMethod.GET, params = {"codeSpec", "semester"})
     public ResponseEntity<List<Group>> getGroups(@RequestParam("codeSpec") String codeSpec, @RequestParam("semester") int sem) {
         return ResponseEntity.ok(groupService.findByCodeOfSpecialtyAndSemestry(codeSpec, sem));
     }

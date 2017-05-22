@@ -1,7 +1,7 @@
 package com.example.models;
 
 import com.example.models.id.SubgroupId;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import javax.persistence.Entity;
@@ -31,7 +31,7 @@ public class Subgroup {
           @JoinColumn(name = "number_of_group", nullable = false, insertable = false, updatable = false),
           @JoinColumn(name = "semester", nullable = false, insertable = false, updatable = false)
   })
-  @JsonManagedReference
+  @JsonIgnore
   private Group obj;
 
   public Group getObj() {

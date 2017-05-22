@@ -1,8 +1,7 @@
 package com.example.models;
 
 import com.example.models.id.LoadId;
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.util.Collection;
@@ -32,7 +31,7 @@ public class Load {
           @JoinColumn(name = "id_of_discipline", insertable = false, updatable = false),
           @JoinColumn(name = "semester", insertable = false, updatable = false)
   }, foreignKey = @ForeignKey(name = "load_code_of_specialty_fkey"))
-  @JsonManagedReference
+  @JsonIgnore
   private AcademicPlan academicPlan;
 
   public AcademicPlan getAcademicPlan() {

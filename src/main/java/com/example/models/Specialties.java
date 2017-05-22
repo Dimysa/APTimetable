@@ -1,7 +1,6 @@
 package com.example.models;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
@@ -27,12 +26,12 @@ public class Specialties {
 
   @ManyToOne
   @JoinColumn(name = "id_of_faculty", insertable = false, updatable = false, foreignKey = @ForeignKey(name = "specialties_id_of_faculty_fkey"))
-  @JsonManagedReference
+  @JsonIgnore
   private Faculties faculty;
 
   @OneToMany(mappedBy = "specialties")
   @LazyCollection(LazyCollectionOption.FALSE)
-  @JsonBackReference
+  @JsonIgnore
   private Collection<Group> groups;
 
   public Collection<Group> getGroups() {

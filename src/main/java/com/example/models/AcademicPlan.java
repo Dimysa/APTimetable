@@ -2,7 +2,7 @@ package com.example.models;
 
 
 import com.example.models.id.AcademicPlanId;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
@@ -25,11 +25,11 @@ public class AcademicPlan {
   private int semester;
   @OneToOne
   @JoinColumn(name = "code_of_specialty", updatable = false, insertable = false, foreignKey = @ForeignKey(name = "academic_plan_code_of_specialty_fkey"))
-  @JsonManagedReference
+  @JsonIgnore
   private Specialties specialty;
   @OneToOne
   @JoinColumn(name = "id_of_discipline", updatable = false, insertable = false, foreignKey = @ForeignKey(name = "academic_plan_id_of_discipline_fkey"))
-  @JsonManagedReference
+  @JsonIgnore
   private Disciplines discipline;
   @OneToMany(mappedBy = "academicPlan")
   @LazyCollection(LazyCollectionOption.FALSE)

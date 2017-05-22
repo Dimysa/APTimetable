@@ -2,8 +2,6 @@ package com.example.models;
 
 import com.example.models.id.GroupId;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
 import java.util.Collection;
@@ -25,13 +23,13 @@ public class Group {
     private int semester;
 
     @OneToMany(mappedBy = "obj", fetch = FetchType.EAGER)
-    @JsonBackReference
+    @JsonIgnore
     private Collection<Subgroup> subgroups;
 
     @ManyToOne
     @JoinColumn(name = "code_of_specialty", insertable = false, updatable = false,
             foreignKey = @ForeignKey(name = "group_table_code_of_specialty_fkey"))
-    @JsonManagedReference
+    @JsonIgnore
     private Specialties specialties;
 
     public Group() {
