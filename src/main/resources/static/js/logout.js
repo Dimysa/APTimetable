@@ -1,7 +1,10 @@
 $(document).ready(function () {
     $(window).on('load', function () {
-        if(window.location.pathname.split("/")[1] == 'security')
-            $('#login').text('Admin');
+        if(window.location.pathname.split("/")[1] == 'security') {
+            $('#login').text('Logout');            
+            $('#login').removeAttr('data-toggle').removeAttr('aria-expanded').removeAttr('class');;
+            $('#login-dp').remove();
+        }
         $('#login').attr('href', '/');
         $('body').on('click', '#btnLogin', function () {
             $.ajax({
